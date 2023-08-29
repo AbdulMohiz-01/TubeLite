@@ -60,6 +60,11 @@ const signin = async (request, response, next) => {
         if (!user) {
             next(createError(404, "User not found"))
         }
+        // q: command to push to github
+        // a: git add .
+        // a: git commit -m "message"
+        // a: git push origin main
+
 
         // decrypt the password and check if it matches
         const validPassword = await bcrypt.compare(request.body.password, user.password);
