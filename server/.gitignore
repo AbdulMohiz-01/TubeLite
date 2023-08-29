@@ -1,0 +1,28 @@
+# Node.js and Express
+node_modules/
+npm-debug.log*
+
+# Build artifacts
+build/
+dist/
+*.min.js
+
+# Environment variables
+.env
+
+# IDE and text editor specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Log files
+*.log
+
+# MongoDB
+dump/
+*.db
+
+# Other project-specific files/directories to ignore
+config.js
+uploads/
