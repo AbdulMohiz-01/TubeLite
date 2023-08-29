@@ -1,6 +1,14 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
+
+// import the routes
+import authRoutes from './routes/auths.js';
+import videoRoutes from './routes/videos.js';
+import userRoutes from './routes/users.js';
+import commentRoutes from './routes/comments.js';
+
 
 
 dotenv.config();
@@ -17,10 +25,35 @@ const connect = () => {
     ).catch((err) => { throw err });
 }
 
+// initialize express
 const app = express();
 
+// middlewares
+app.use(express.json());
+// this middleware will allow us to send cookies to client side
+app.use(cookieParser());
+
+// this middleware will allow us to send custom error messages
+app.use((err, req, res, next) => {
+    const [status, message] = [err.status || 500, err.message || 'Internal Server Error'];
+    return res.status(status).json({
+        success: false,
+        status,
+        message,
+    })
+})
+
+
+// > routes
+app.use('/api/auth', authRoutes);
+app.use('/api/videos', videoRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/comments', commentRoutes);
+
+
+// start the server
 app.listen(3000, () => {
     connect();
-    console.log('Server listening on port 3000');
+    console.log("listening on: http://localhost:3000")
 }
 );
