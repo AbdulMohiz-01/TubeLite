@@ -49,7 +49,6 @@ const signup = async (request, response, next) => {
 
 const signin = async (request, response, next) => {
     try {
-        console.log(request.body)
         // extract the name data from the request body
         const { name } = request.body;
 
@@ -60,11 +59,6 @@ const signin = async (request, response, next) => {
         if (!user) {
             next(createError(404, "User not found"))
         }
-        // q: command to push to github
-        // a: git add .
-        // a: git commit -m "message"
-        // a: git push origin main
-
 
         // decrypt the password and check if it matches
         const validPassword = await bcrypt.compare(request.body.password, user.password);
@@ -85,7 +79,6 @@ const signin = async (request, response, next) => {
             token,
             {
                 httpOnly: true,
-                maxAge: 24 * 60 * 60 * 1000 // 1 day
             }
         )
             .status(200)
