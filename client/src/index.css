@@ -6,8 +6,29 @@
 @layer base{
     body{
         font-family:'Poppins', sans-serif;
+        overflow: hidden;
     }
-    .logo-font{
-        font-family:'Rubik', sans-serif;
-    }
+}
+
+@layer utilities {
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 8px; /* Set the width of the scrollbar */
+      }
+      
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent; /* Background color of the track */
+      }
+      
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3); /* Color of the scrollbar thumb */
+        border-radius: 4px; /* Rounded corners for the thumb */
+      }
+      
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5); /* Color of the thumb on hover */
+      }
+      
+      .custom-scrollbar::-webkit-scrollbar-thumb:active {
+        background: rgba(255, 255, 255, 0.7); /* Color of the thumb when active (clicking) */
+      }
 }

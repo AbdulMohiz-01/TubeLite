@@ -1,31 +1,53 @@
 import { Search, Plus, User } from "lucide-react";
+import { useState } from "react";
+import Modal from "./Modal";
+import Signin from "./Signin";
 
 const Navbar = () => {
+  const [isLogin, setIsLogin] = useState(false);
+  const [isModel, setIsModel] = useState(false);
+
+  const closeFunc = () => {
+    setIsModel(false);
+  };
   return (
-    <div className="bg-gray-900 h-16 flex items-center justify-between px-4">
+    <div className="h-12 flex items-center justify-between px-4">
       <div className="flex items-center">
-        <img
-          src="/path/to/logo.png"
-          alt="Logo"
-          className="h-8 w-auto mr-4"
+        <h1 className="font-roboto bg-white text-red-600 text-2xl font-bold ml-4">
+          <span className="text-white bg-red-600 p-1">Tube</span>Lite
+        </h1>
+      </div>
+      <div className="bg-gray-1000 rounded-full p-3 flex w-1/3">
+        <input
+          type="text"
+          placeholder="Search..."
+          className="bg-transparent text-white placeholder-gray-400 ml-2 outline-none w-full"
         />
-        <div className="bg-gray-800 rounded-md p-2">
+        <button>
           <Search className="text-white" />
-          <input
-            type="text"
-            placeholder="Search..."
-            className="bg-transparent text-white placeholder-gray-400 ml-2 outline-none"
-          />
-        </div>
+        </button>
       </div>
       <div className="flex items-center">
         <Plus className="text-white mr-4 cursor-pointer" />
-        <User className="text-white cursor-pointer" />
+        {isLogin ? (
+          <User className="text-white cursor-pointer" />
+        ) : (
+          <button
+            className="px-4 py-2 border border-red-600 text-red-600 rounded hover:bg-red-600 hover:text-white focus:outline-none transition duration-300 ease-in-out"
+            onClick={() => setIsModel(true)}
+          >
+            Sign In
+          </button>
+        )}
+
+        {isModel && (
+          <Modal>
+            <Signin closeModal={closeFunc} />
+          </Modal>
+        )}
       </div>
     </div>
   );
 };
 
-export {
-    Navbar
-}
+export { Navbar };
