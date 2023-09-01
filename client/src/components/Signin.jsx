@@ -1,4 +1,6 @@
 import { X } from "lucide-react";
+import { Link } from "react-router-dom";
+
 const Signin = (props) => {
   const { closeModal } = props;
   console.log(closeModal);
@@ -51,6 +53,19 @@ const Signin = (props) => {
             </button>
           </div>
         </form>
+
+        {/* Don't have an account */}
+        <div className="mt-4">
+          <p className="text-white">
+            {`Don't have an account?`}{" "}
+            <Link
+              to={"/signup"}
+              className="text-red-600 hover:underline focus:outline-none"
+            >
+              Sign Up
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
