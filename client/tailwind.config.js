@@ -24,6 +24,10 @@ export default {
           1000: "#272727"
         }
       },
+      width: {
+        "7/10": "70%",
+        "3/10": "30%",
+      },
       fontFamily: {
         roboto: ["Roboto Condensed", "sans-serif"]
       }

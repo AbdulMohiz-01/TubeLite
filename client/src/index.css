@@ -31,4 +31,9 @@
       .custom-scrollbar::-webkit-scrollbar-thumb:active {
         background: rgba(255, 255, 255, 0.7); /* Color of the thumb when active (clicking) */
       }
+
+    .comment-actions{
+      /* text-white px-6 py-2 flex items-center gap-2 */
+      @apply text-white px-6 py-2 flex items-center gap-2;
+    }
 }
