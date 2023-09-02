@@ -11,7 +11,8 @@ const Navbar = () => {
     setIsModel(false);
   };
   return (
-    <div className="h-12 flex items-center justify-between px-4">
+    // <section className="fixed top-0 z-50 bg-gray-1000 w-full">
+    <div className=" flex items-center justify-between px-4 h-12">
       <div className="flex items-center">
         <h1 className="font-roboto bg-white text-red-600 text-2xl font-bold ml-4">
           <span className="text-white bg-red-600 p-1">Tube</span>Lite
@@ -47,6 +48,7 @@ const Navbar = () => {
         )}
       </div>
     </div>
+    // </section>
   );
 };
 
