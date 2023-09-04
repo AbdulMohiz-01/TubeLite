@@ -1,41 +1,56 @@
 import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
+import { findUser } from "../Service/usersApi.js";
+import { format } from "timeago.js";
 
-const Cards = ({
-  thumbnailUrl,
-  duration,
-  title,
-  channel,
-  views,
-  uploadDate,
-}) => {
+const Cards = ({ video }) => {
+  const [channel, setChannel] = useState({});
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await findUser(video.userId);
+        setChannel(response.data);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+    fetchUser();
+  }, [video.userId]);
   return (
-    <div className="bg-gray-1000 rounded-lg shadow-md overflow-hidden hover:shadow-lg">
+    <div className=" rounded-lg shadow-md overflow-hidden hover:shadow-lg">
       {/* Video Thumbnail */}
-      <div className="relative">
-        <img src={thumbnailUrl} alt="Video Thumbnail" className="w-full" />
-        <span className="absolute top-2 right-2 px-2 py-1 bg-black text-white text-sm rounded">
-          {duration}
-        </span>
+      <div className="relative bg-gray-1000">
+        <img
+          src={video.thumbnail}
+          alt="Video Thumbnail"
+          className="w-full h-48 object-cover"
+        />
       </div>
 
       {/* Video Information */}
-      <div className="p-4">
-        <h3 className="text-white text-lg mb-2">{title}</h3>
-        <p className="text-gray-600 text-sm">
-          {channel} • {views} views • {uploadDate}
-        </p>
+      <div className="p-2">
+        <div className="flex gap-2">
+          <img
+            src={channel.img}
+            alt="Channel Avatar"
+            className="w-8 h-8 rounded-full"
+          />
+          <div className="flex flex-col">
+            <h3 className="text-white text-md line-clamp-2">{video.title}</h3>
+            <p className="text-gray-500 text-sm">{channel.name}</p>
+            <p className="text-gray-500 text-sm">
+              {video.views} views • {format(video.createdAt)}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
 Cards.propTypes = {
-  thumbnailUrl: PropTypes.string.isRequired,
-  duration: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  channel: PropTypes.string.isRequired,
-  views: PropTypes.string.isRequired,
-  uploadDate: PropTypes.string.isRequired,
+  video: PropTypes.object.isRequired,
 };
 
 export default Cards;
