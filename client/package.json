@@ -14,6 +14,7 @@
     "axios": "^1.5.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.272.0",
+    "numeral": "^2.0.6",
     "postcss": "^8.4.29",
     "prettier": "^3.0.3",
     "react": "^18.2.0",

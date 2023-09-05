@@ -17,6 +17,7 @@ const videoSchema = new mongoose.Schema({
     thumbnail: {
         type: String, // URL
         required: true,
+        default: "https://media.gq-magazine.co.uk/photos/645b5c3c8223a5c3801b8b26/16:9/w_2560%2Cc_limit/100-best-games-hp-b.jpg"
     },
     videoUrl: {
         type: String, // URL

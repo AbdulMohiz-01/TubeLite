@@ -1,19 +1,28 @@
-import Cards from "./Cards"; // Import your Cards component
-import { getVideos } from "../Service/videosApi";
+import Cards from "./Cards/Video"; // Import your Cards component
+import { getVideos, getTrendingVideos } from "../Service/videosApi";
 import { useEffect, useState } from "react";
 import Loading from "./Loading";
 
-const Content = () => {
+const Content = ({ type }) => {
   const [videos, setVideos] = useState([]);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const response = await getVideos();
+        var response = null;
+        switch (type) {
+          case "home":
+            response = await getVideos();
+            break;
+          case "trending":
+            response = await getTrendingVideos();
+            break;
+          default:
+            response = await getVideos();
+        }
+
         setVideos(response.data);
-        console.log(response.data);
         setLoading(false); // Set loading to false when data is loaded
       } catch (error) {
         console.error("Error fetching videos:", error);
@@ -21,7 +30,7 @@ const Content = () => {
       }
     };
     fetchVideos();
-  }, []);
+  }, [type]);
 
   return (
     <>
