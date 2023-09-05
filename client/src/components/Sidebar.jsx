@@ -16,7 +16,7 @@ const Sidebar = ({ disguisedFunc }) => {
   return (
     <div className="custom-scrollbar bg-background h-[89.6vh] overflow-y-scroll min-w-min flex flex-col bg-dark p-3">
       {/* Explore Section */}
-      <section className="flex flex-col gap-6">
+      <section className="flex flex-col gap-2">
         <h4 className="text-white text-xl font-bold">Explore</h4>
         <div className="flex flex-col gap-1">
           <SideItem

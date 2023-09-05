@@ -4,10 +4,10 @@ const SideItem = (props) => {
   return (
     <button
       onClick={() => funcReleasedOnClick(text.toLowerCase())}
-      className="flex items-center gap-3 p-2 border border-gray-1000 bg-gray-1000 rounded-lg w-48 hover:border-red-800 transition-all duration-300 "
+      className="flex items-center gap-3 p-2 border border-background rounded-lg w-48 hover:border-red-800 hover:text-red-800 transition-all duration-300 "
     >
       <Icon className="text-white cursor-pointer" color={color} />
-      <p className="text-white ml-8">{text}</p>
+      <p className="text-white text-sm">{text}</p>
     </button>
   );
 };
