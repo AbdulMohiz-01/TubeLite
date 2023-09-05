@@ -35,11 +35,11 @@ const Content = ({ type }) => {
   return (
     <>
       {loading ? (
-        <div className=" h-[89.6vh] w-full flex justify-center items-center">
+        <div className=" h-[89.6vh] w-full flex justify-center items-center mt-4 ml-[15rem]">
           <Loading />
         </div>
       ) : (
-        <div className="custom-scrollbar h-[89.6vh] overflow-y-scroll grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full m-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full m-3 mt-[4.15rem] ml-[15rem]">
           {videos.map((video, index) => (
             <div key={index}>
               <Cards video={video} />

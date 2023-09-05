@@ -6,7 +6,7 @@ import Watch from "./views/Watch";
 function App() {
   return (
     <>
-      <div className="min-h-min bg-background p-4">
+      <div className="h-screen bg-background p-4 custom-scrollbar overflow-y-scroll">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />

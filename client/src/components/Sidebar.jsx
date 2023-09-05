@@ -14,7 +14,7 @@ const Sidebar = ({ disguisedFunc }) => {
   const [isLogin, setIsLogin] = useState(true);
 
   return (
-    <div className="custom-scrollbar bg-background h-[89.6vh] overflow-y-scroll min-w-min flex flex-col bg-dark p-3">
+    <div className="custom-scrollbar bg-background h-[89.6vh] overflow-y-scroll min-w-min flex flex-col bg-dark p-3 fixed left-1 mt-20 -pr-3">
       {/* Explore Section */}
       <section className="flex flex-col gap-2">
         <h4 className="text-white text-xl font-bold">Explore</h4>
