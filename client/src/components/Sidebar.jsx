@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import SideItem from "./sideItem";
 
-const Sidebar = ({ disguisedFunc }) => {
+const Sidebar = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   return (
@@ -19,21 +19,9 @@ const Sidebar = ({ disguisedFunc }) => {
       <section className="flex flex-col gap-2">
         <h4 className="text-white text-xl font-bold">Explore</h4>
         <div className="flex flex-col gap-1">
-          <SideItem
-            Icon={Home}
-            funcReleasedOnClick={disguisedFunc}
-            text="Home"
-          />
-          <SideItem
-            Icon={TrendingUp}
-            funcReleasedOnClick={disguisedFunc}
-            text="Trending"
-          />
-          <SideItem
-            Icon={MonitorPlay}
-            funcReleasedOnClick={disguisedFunc}
-            text="Subscribed"
-          />
+          <SideItem Icon={Home} text="Home" />
+          <SideItem Icon={TrendingUp} text="Trending" />
+          <SideItem Icon={MonitorPlay} text="Subscribed" />
         </div>
         <hr className="border-gray-1000 border rounded-xl opacity-90" />
       </section>

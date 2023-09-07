@@ -3,12 +3,17 @@ import { getVideos, getTrendingVideos } from "../Service/videosApi";
 import { useEffect, useState } from "react";
 import Loading from "./Loading";
 
-const Content = ({ type }) => {
+import { useSelector } from "react-redux";
+
+const Content = () => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const type = useSelector((state) => state.sideBar.selected);
+  console.log(type);
 
   useEffect(() => {
     const fetchVideos = async () => {
+      setLoading(true); // Set loading to true before fetching data
       try {
         var response = null;
         switch (type) {
