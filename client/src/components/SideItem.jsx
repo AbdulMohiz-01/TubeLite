@@ -9,7 +9,7 @@ const SideItem = (props) => {
   const type = useSelector((state) => state.sideBar.selected);
 
   const selected = clsx(
-    "flex items-center gap-3 p-2 rounded-lg w-48 hover:bg-red-800 hover:text-red-800 transition-all duration-300 ",
+    "flex items-center gap-3 p-2 rounded-xl w-48 hover:bg-red-800 hover:text-red-800 transition-all duration-300 ",
     type === text.toLowerCase() && "border-none bg-red-800 text-white",
   );
 
@@ -21,7 +21,11 @@ const SideItem = (props) => {
 
   return (
     <button onClick={() => handleClick()} className={selected}>
-      <Icon className="text-white cursor-pointer" color={selectedIcon} />
+      <Icon
+        size={24}
+        className="text-white cursor-pointer"
+        color={selectedIcon}
+      />
       <p className="text-white text-sm">{text}</p>
     </button>
   );

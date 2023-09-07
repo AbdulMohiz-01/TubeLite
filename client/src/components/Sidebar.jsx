@@ -17,37 +17,37 @@ const Sidebar = () => {
     <div className="custom-scrollbar bg-background h-[89.6vh] overflow-y-scroll min-w-min flex flex-col bg-dark p-3 fixed left-1 mt-20 -pr-3">
       {/* Explore Section */}
       <section className="flex flex-col gap-2">
-        <h4 className="text-white text-xl font-bold">Explore</h4>
-        <div className="flex flex-col gap-1">
+        <h4 className="sidebar-section-title">Explore</h4>
+        <div className="sidebar-section-items-wrapper">
           <SideItem Icon={Home} text="Home" />
           <SideItem Icon={TrendingUp} text="Trending" />
           <SideItem Icon={MonitorPlay} text="Subscribed" />
         </div>
-        <hr className="border-gray-1000 border rounded-xl opacity-90" />
+        <hr className="sidebar-seperator" />
       </section>
       {/* Subscriber's Section */}
-      <section className="flex flex-col gap-6 mt-4">
-        {/* <h4 className="text-white text-xl font-bold">Explore</h4> */}
-        <div className="flex flex-col gap-1">
+      <section className="sidebar-wrapper">
+        {/* <h4 className="sidebar-section-title">Explore</h4> */}
+        <div className="sidebar-section-items-wrapper">
           <SideItem Icon={Tv2} text="Watch Later" />
           <SideItem Icon={Heart} text="Liked" />
         </div>
-        <hr className="border-gray-1000 border rounded-xl opacity-90" />
+        <hr className="sidebar-seperator" />
       </section>
 
       {/* Subscribers */}
-      <section className="flex flex-col gap-6 mt-4">
-        <h4 className="text-white text-xl font-bold">Subscriptions</h4>
-        <div className="flex flex-col gap-1">
+      <section className="sidebar-wrapper">
+        <h4 className="sidebar-section-title">Subscriptions</h4>
+        <div className="sidebar-section-items-wrapper">
           {isLogin ? <Subscriptions /> : <SideItem Icon={LogIn} text="Login" />}
         </div>
-        <hr className="border-gray-1000 border rounded-xl opacity-90" />
+        <hr className="sidebar-seperator" />
       </section>
 
       {/* Settings Section */}
-      <section className="flex flex-col gap-6 mt-4">
-        <h4 className="text-white text-xl font-bold">Settings</h4>
-        <div className="flex flex-col gap-1">
+      <section className="sidebar-wrapper">
+        <h4 className="sidebar-section-title">Settings</h4>
+        <div className="sidebar-section-items-wrapper">
           <SideItem Icon={Settings} color="white" text="Settings" />
         </div>
       </section>

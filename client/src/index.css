@@ -10,6 +10,24 @@
     }
 }
 
+@layer components{
+  .sidebar-section-title {
+    @apply text-white uppercase font-semibold tracking-wider;
+  }
+
+  .sidebar-section-items-wrapper{
+    @apply flex flex-col
+  }
+
+  .sidebar-wrapper {
+    @apply flex flex-col gap-2 mt-4
+  }
+
+  .sidebar-seperator {
+    @apply border-gray-1000 border rounded-xl opacity-90
+  }
+}
+
 @layer utilities {
     .custom-scrollbar::-webkit-scrollbar {
         width: 8px; /* Set the width of the scrollbar */
