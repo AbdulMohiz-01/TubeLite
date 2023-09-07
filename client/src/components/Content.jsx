@@ -9,7 +9,6 @@ const Content = () => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const type = useSelector((state) => state.sideBar.selected);
-  console.log(type);
 
   useEffect(() => {
     const fetchVideos = async () => {
