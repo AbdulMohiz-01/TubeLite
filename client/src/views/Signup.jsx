@@ -1,4 +1,14 @@
+import { useState } from "react";
+
 const Signup = () => {
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {};
+
   return (
     <section className="gradient-form min-h-screen flex justify-center items-center">
       <div className="container h-full p-10">
@@ -31,7 +41,7 @@ const Signup = () => {
                       <h4 className="mb-12 mt-1 pb-1 text-xl font-semibold"></h4>
                     </div>
 
-                    <form>
+                    <form onSubmit={handleChange}>
                       <p className="mb-4">Register Yourself</p>
                       {/* Username input */}
                       <div className="relative mb-4">
@@ -46,6 +56,10 @@ const Signup = () => {
                           className="w-full py-2 px-3 mt-1 shadow-inner rounded-md bg-[#4c4c4c] text-white placeholder-gray-400 focus:outline-none focus:ring focus:ring-red-500"
                           placeholder="Abdul Mohiz"
                           id="name"
+                          value={user.name}
+                          onChange={(e) =>
+                            setUser({ ...user, name: e.target.value })
+                          }
                         />
                       </div>
 
@@ -62,6 +76,10 @@ const Signup = () => {
                           className="w-full py-2 px-3 mt-1 shadow-inner rounded-md bg-[#4c4c4c] text-white placeholder-gray-400 focus:outline-none focus:ring focus:ring-red-500"
                           placeholder="abdulmohiz@gmail.com"
                           id="email"
+                          value={user.email}
+                          onChange={(e) =>
+                            setUser({ ...user, email: e.target.value })
+                          }
                         />
                       </div>
 
@@ -77,6 +95,10 @@ const Signup = () => {
                           type="password"
                           className="w-full py-2 px-3 mt-1 shadow-inner rounded-md bg-[#4c4c4c] text-white placeholder-gray-400 focus:outline-none focus:ring focus:ring-red-500"
                           id="password"
+                          value={user.password}
+                          onChange={(e) =>
+                            setUser({ ...user, password: e.target.value })
+                          }
                         />
                       </div>
 
@@ -84,25 +106,24 @@ const Signup = () => {
                       <div className="mb-12 pb-1 pt-1 text-center">
                         <button
                           className="w-full px-4 py-2 bg-red-600 text-white  hover:shadow-xl rounded-lg focus:outline-none transition duration-300 ease-in-out"
-                          type="button"
+                          type="submit"
                         >
                           Signup
                         </button>
                       </div>
-
-                      {/* Register button */}
-                      <div className="flex items-center justify-between pb-6">
-                        <p className="mb-0 mr-2">{`Already have an account?`}</p>
-                        <button
-                          type="button"
-                          className="px-4 py-2 border border-red-600 text-red-600 rounded hover:bg-red-600 hover:text-white focus:outline-none transition duration-300 ease-in-out"
-                          data-te-ripple-init
-                          data-te-ripple-color="light"
-                        >
-                          Login
-                        </button>
-                      </div>
                     </form>
+                    {/* Register button */}
+                    <div className="flex items-center justify-between pb-6">
+                      <p className="mb-0 mr-2">{`Already have an account?`}</p>
+                      <button
+                        type="button"
+                        className="px-4 py-2 border border-red-600 text-red-600 rounded hover:bg-red-600 hover:text-white focus:outline-none transition duration-300 ease-in-out"
+                        data-te-ripple-init
+                        data-te-ripple-color="light"
+                      >
+                        Login
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

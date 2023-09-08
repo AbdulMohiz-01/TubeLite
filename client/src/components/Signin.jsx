@@ -1,9 +1,18 @@
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Signin = (props) => {
+  // State
+  const [user, setUser] = useState({
+    name: "",
+    password: "",
+  });
+
   const { closeModal } = props;
-  console.log(closeModal);
+
+  // Handle submit
+  const handleSubmit = (e) => {};
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-gray-1000 p-8 rounded-lg shadow-md w-96">
@@ -16,20 +25,22 @@ const Signin = (props) => {
             <X size={24} color="white" />
           </button>
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
               className="block text-sm font-medium text-white mb-1"
-              htmlFor="email"
+              htmlFor="username"
             >
-              Email
+              Username
             </label>
             <input
-              type="email"
-              id="email"
-              name="email"
+              type="username"
+              id="username"
+              name="username"
+              value={user.name}
+              onChange={(e) => setUser({ ...user, name: e.target.value })}
               className="w-full border border-gray-300 px-3 py-2 rounded-md focus:ring focus:ring-blue-200 focus:border-blue-300"
-              placeholder="Enter your email"
+              placeholder="Enter your username"
             />
           </div>
           <div className="mb-6">
@@ -43,6 +54,8 @@ const Signin = (props) => {
               type="password"
               id="password"
               name="password"
+              value={user.password}
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
               className="w-full border border-gray-300 px-3 py-2 rounded-md focus:ring focus:ring-blue-200 focus:border-blue-300"
               placeholder="Enter your password"
             />
