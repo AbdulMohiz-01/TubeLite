@@ -74,6 +74,7 @@ const signin = async (request, response, next) => {
         const { password, ...rest } = user._doc;
 
         // send the token as a cookie to the client side
+        console.log(rest)
         response.cookie(
             "access_token",
             token,

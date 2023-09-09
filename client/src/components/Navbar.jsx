@@ -1,10 +1,12 @@
-import { Search, Plus, User } from "lucide-react";
+import { Search, Plus } from "lucide-react";
 import { useState } from "react";
 import Modal from "./Modal";
 import Signin from "./Signin";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const user = useSelector((state) => state.user);
+  console.log(user);
   const [isModel, setIsModel] = useState(false);
 
   const closeFunc = () => {
@@ -30,9 +32,17 @@ const Navbar = () => {
           </button>
         </div>
         <div className="flex items-center">
-          <Plus className="text-white mr-4 cursor-pointer" />
-          {isLogin ? (
-            <User className="text-white cursor-pointer" />
+          {user.name ? (
+            <>
+              <Plus className="text-white mr-4 cursor-pointer" />
+              <div className="flex items-center flex-col gap-1">
+                <img
+                  src={user.img}
+                  alt="avatar"
+                  className="w-10 h-10 rounded-full"
+                />
+              </div>
+            </>
           ) : (
             <button
               className="px-4 py-2 border border-red-600 text-red-600 rounded hover:bg-red-600 hover:text-white focus:outline-none transition duration-300 ease-in-out"

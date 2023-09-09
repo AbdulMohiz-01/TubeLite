@@ -9,8 +9,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      cacheTime: Infinity, // milliseconds
-      staleTime: Infinity, // milliseconds
+      // 15 secs for cache time
+      cacheTime: 15 * 1000,
+      staleTime: 15 * 1000,
       retry: 3,
       // refetchInterval: 5 * 60 * 1000, // milliseconds
       // Infinite loading: Specify how to get more data for pagination

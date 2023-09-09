@@ -1,18 +1,37 @@
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { signIn } from "../Service/authApi";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/slices/userSlice";
+import PropTypes from "prop-types";
 
-const Signin = (props) => {
+const Signin = ({ closeModal }) => {
   // State
   const [user, setUser] = useState({
     name: "",
     password: "",
   });
+  const dispatch = useDispatch();
 
-  const { closeModal } = props;
+  const queryClient = useQueryClient();
+
+  // Define the mutation function
+  const signInMutation = useMutation(signIn, {
+    onSuccess: (data) => {
+      dispatch(login(data));
+      console.log(data);
+      closeModal();
+      queryClient.invalidateQueries("someQueryKey");
+    },
+  });
 
   // Handle submit
-  const handleSubmit = (e) => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    signInMutation.mutate(user);
+  };
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-gray-1000 p-8 rounded-lg shadow-md w-96">
@@ -84,4 +103,7 @@ const Signin = (props) => {
   );
 };
 
+Signin.proptypes = {
+  closeModal: PropTypes.func.isRequired,
+};
 export default Signin;
