@@ -12,6 +12,17 @@ const findUser = async ({ queryKey }) => {
     return response.data;
 };
 
+const findBatchUsers = async ({ queryKey }) => {
+    const ids = queryKey[2];
+    const response = await axios.get(`${BASE_URL}/api/users/batch/find/${ids}`);
+
+    if (response.status !== 200) {
+        throw new Error('findBatchUsers fetch not ok');
+    }
+    return response.data;
+}
+
 export {
     findUser,
+    findBatchUsers
 }

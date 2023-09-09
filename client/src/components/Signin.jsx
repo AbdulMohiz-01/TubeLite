@@ -103,7 +103,7 @@ const Signin = ({ closeModal }) => {
   );
 };
 
-Signin.proptypes = {
+Signin.propTypes = {
   closeModal: PropTypes.func.isRequired,
 };
 export default Signin;

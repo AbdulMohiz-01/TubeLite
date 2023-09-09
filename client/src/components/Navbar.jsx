@@ -3,9 +3,10 @@ import { useState } from "react";
 import Modal from "./Modal";
 import Signin from "./Signin";
 import { useSelector } from "react-redux";
+import Dropdown from "./Dropdown";
 
 const Navbar = () => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.currentUser);
   console.log(user);
   const [isModel, setIsModel] = useState(false);
 
@@ -32,15 +33,11 @@ const Navbar = () => {
           </button>
         </div>
         <div className="flex items-center">
-          {user.name ? (
+          {user ? (
             <>
               <Plus className="text-white mr-4 cursor-pointer" />
               <div className="flex items-center flex-col gap-1">
-                <img
-                  src={user.img}
-                  alt="avatar"
-                  className="w-10 h-10 rounded-full"
-                />
+                <Dropdown img={user.img} />
               </div>
             </>
           ) : (

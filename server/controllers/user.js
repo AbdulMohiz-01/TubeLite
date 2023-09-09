@@ -55,6 +55,7 @@ const getUser = async (request, response, next) => {
 // get batch users
 const getBatchUsers = async (request, response, next) => {
     try {
+
         const userIds = request.params.users.split(','); // Split the string into an array of individual IDs
         const objectIds = userIds.map(userId => new mongoose.Types.ObjectId(userId)); // Convert each ID to ObjectId
 

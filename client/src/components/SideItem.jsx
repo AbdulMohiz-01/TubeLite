@@ -10,10 +10,15 @@ const SideItem = (props) => {
 
   const selected = clsx(
     "flex items-center gap-3 p-2 rounded-xl w-48 hover:bg-red-800 hover:text-red-800 transition-all duration-300 ",
-    type === text.toLowerCase() && "border-none bg-red-800 text-white",
+    (type === "random" ? "home" : type) === text.toLowerCase() &&
+      "border-none bg-red-800 text-white",
   );
 
-  const selectedIcon = clsx(type === text.toLowerCase() ? "white" : color);
+  const selectedIcon = clsx(
+    (type === "random" ? "home" : type) === text.toLowerCase()
+      ? "white"
+      : color,
+  );
 
   const handleClick = () => {
     if (text === "Home") {
