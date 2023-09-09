@@ -9,9 +9,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      cacheTime: 10 * 60 * 1000, // milliseconds
-      staleTime: 2 * 60 * 1000, // milliseconds
-      refetchInterval: 5 * 60 * 1000, // milliseconds
+      cacheTime: Infinity, // milliseconds
+      staleTime: Infinity, // milliseconds
+      retry: 3,
+      // refetchInterval: 5 * 60 * 1000, // milliseconds
       // Infinite loading: Specify how to get more data for pagination
       // getFetchMore: (lastPage, allPages) => lastPage.nextPage, // Adjust this based on your API response structure
     },
@@ -20,10 +21,10 @@ const queryClient = new QueryClient({
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
         <App />
-      </Provider>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </Provider>
   </BrowserRouter>,
 );

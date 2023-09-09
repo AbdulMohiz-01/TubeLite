@@ -1,6 +1,7 @@
 import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 import Video from "../models/video.js";
+import mongoose from 'mongoose';
 
 
 const updateUser = async (request, response, next) => {
@@ -51,6 +52,20 @@ const getUser = async (request, response, next) => {
 
 }
 
+// get batch users
+const getBatchUsers = async (request, response, next) => {
+    try {
+        const userIds = request.params.users.split(','); // Split the string into an array of individual IDs
+        const objectIds = userIds.map(userId => new mongoose.Types.ObjectId(userId)); // Convert each ID to ObjectId
+
+        const users = await User.find({ _id: { $in: objectIds } });
+        // TODO: extract the password and updatedAt from the users
+
+        response.status(200).json(users);
+    } catch (err) {
+        next(err);
+    }
+}
 const subscribeUser = async (request, response, next) => {
     // request.user._id is the id of the user who is subscribing
     // request.params.id is the id of the user to whom we are subscribing
@@ -151,6 +166,7 @@ export {
     updateUser,
     deleteUser,
     getUser,
+    getBatchUsers,
     subscribeUser,
     unsubscribeUser,
     likeVideo,

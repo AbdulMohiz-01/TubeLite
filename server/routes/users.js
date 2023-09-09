@@ -3,6 +3,7 @@ import {
     updateUser,
     deleteUser,
     getUser,
+    getBatchUsers,
     subscribeUser,
     unsubscribeUser,
     likeVideo,
@@ -25,6 +26,9 @@ router.delete('/:id', verifyToken, deleteUser); // id will be the id of the user
 
 // get user
 router.get('/find/:id', getUser); // id will be the id of the user
+
+// get batch of users
+router.get('/batch/find/:users', getBatchUsers); // id will be the ids' of the user
 
 // subscribe to user
 router.put("/sub/:id", verifyToken, subscribeUser); // id will be the id of the user to whom we want to subscribe

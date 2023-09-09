@@ -62,6 +62,7 @@ const deleteVideo = async (request, response, next) => {
 
 const getVideo = async (request, response, next) => {
     try {
+        console.log("Im in server")
         const video = await Video.findById(request.params.id)
         if (!video) {
             return response.status(404).json("Video not found...")

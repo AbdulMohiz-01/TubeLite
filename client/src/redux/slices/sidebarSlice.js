@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     sidebarOpen: false,
-    selected: "home",
+    selected: "random",
 };
 
 const sidebarSlice = createSlice({

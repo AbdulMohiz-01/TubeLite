@@ -3,8 +3,9 @@ import sideBar from "./slices/sidebarSlice.js";
 
 const store = configureStore({
     reducer: {
-        sideBar
-    }
+        sideBar,
+    },
+
 })
 
 export default store;

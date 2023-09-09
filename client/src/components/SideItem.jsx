@@ -16,7 +16,12 @@ const SideItem = (props) => {
   const selectedIcon = clsx(type === text.toLowerCase() ? "white" : color);
 
   const handleClick = () => {
-    dispatch(select(text.toLowerCase()));
+    if (text === "Home") {
+      const newText = "random";
+      dispatch(select(newText));
+    } else {
+      dispatch(select(text.toLowerCase()));
+    }
   };
 
   return (
