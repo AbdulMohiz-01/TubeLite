@@ -121,11 +121,11 @@ const Subscriptions = ({ user }) => {
 
 // add prop types
 Sidebar.propTypes = {
-  img: PropTypes.string.isRequired,
+  img: PropTypes.string,
 };
 
 Subscriptions.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
 };
 
 export { Sidebar };

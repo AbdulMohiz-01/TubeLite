@@ -18,13 +18,14 @@ const signIn = async (userData) => {
 
 // Function for registering
 const register = async (userData) => {
-    const response = await axios.post(`${BASE_URL}/register`, userData, {
+    const response = await axios.post(`${BASE_URL}/api/auth/signup`, userData, {
         headers: {
             'Content-Type': 'application/json',
         },
+        withCredentials: true,
     });
-
-    if (response.status !== 200) {
+    // status 201 means: successfully created
+    if (response.status !== 201) {
         throw new Error("Error in registering");
     }
 

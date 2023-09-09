@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { register } from "../Service/authApi";
 
 const Signup = () => {
   const [user, setUser] = useState({
@@ -6,12 +10,34 @@ const Signup = () => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {};
+  const registerMutation = useMutation(register, {
+    onSuccess: (data) => {
+      console.log("This is data");
+      console.log(data);
+      // Handle successful registration here, e.g., redirect to a success page or show a success message.
+      console.log("Registration successful:", data);
+      // Optionally, you can navigate to a different page after successful registration.
+      navigate(-1); // Redirect to the login page after registration.
+    },
+    onError: (error) => {
+      // Handle registration error here, e.g., display an error message to the user.
+      console.error("Registration error:", error);
+    },
+  });
+
+  const handleChange = async (e) => {
+    e.preventDefault();
+    await registerMutation.mutate(user);
+  };
 
   return (
     <section className="gradient-form min-h-screen flex justify-center items-center">
-      <div className="container h-full p-10">
+      <div className="container min-h-min p-10">
+        <button onClick={() => navigate(-1)}>
+          <ArrowLeft className="text-white" />
+        </button>
         <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
           <div className="w-full">
             <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">

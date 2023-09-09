@@ -14,6 +14,7 @@ import jwt from "jsonwebtoken";
 const signup = async (request, response, next) => {
     // extract the user data from the request body
     const user = request.body;
+    console.log(user)
 
     // bcrypt the password
     const salt = await bcrypt.genSalt(10);

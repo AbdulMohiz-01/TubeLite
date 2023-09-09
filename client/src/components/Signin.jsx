@@ -92,7 +92,7 @@ const Signin = ({ closeModal }) => {
             {`Don't have an account?`}{" "}
             <Link
               to={"/signup"}
-              className="text-red-600 hover:underline focus:outline-none"
+              className="text-blue-vivid hover:underline focus:outline-none"
             >
               Sign Up
             </Link>

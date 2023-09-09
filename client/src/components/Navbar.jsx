@@ -7,7 +7,6 @@ import Dropdown from "./Dropdown";
 
 const Navbar = () => {
   const user = useSelector((state) => state.user.currentUser);
-  console.log(user);
   const [isModel, setIsModel] = useState(false);
 
   const closeFunc = () => {
