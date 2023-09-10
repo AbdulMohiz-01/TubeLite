@@ -14,7 +14,6 @@ import jwt from "jsonwebtoken";
 const signup = async (request, response, next) => {
     // extract the user data from the request body
     const user = request.body;
-    console.log(user)
 
     // bcrypt the password
     const salt = await bcrypt.genSalt(10);
@@ -30,7 +29,7 @@ const signup = async (request, response, next) => {
     // save the user to the database
     try {
         await newUser.save();
-        response.status(201).json({ message: "Your account has been created successfully" });
+        response.status(201).json(newUser);
     } catch (error) {
         // if the user already exists
         next(
@@ -89,9 +88,52 @@ const signin = async (request, response, next) => {
     }
 }
 
+const googleSingin = async (request, response, next) => {
+    const payload = request.body;
+
+    try {
+        const user = await User.findOne({ email: payload.email });
+        if (user) {
+            const token = jwt.sign({ _id: user._id }, process.env.JWT_KEY);
+            response.cookie(
+                "access_token",
+                token,
+                {
+                    httpOnly: true,
+                }
+            )
+                .status(200)
+                .json(user._doc);
+        }
+        else {
+            const newUser = new User(
+                {
+                    ...payload,
+                    fromGoogle: true
+                }
+            );
+            await newUser.save();
+            const token = jwt.sign({ _id: newUser._id }, process.env.JWT_KEY);
+            response.cookie(
+                "access_token",
+                token,
+                {
+                    httpOnly: true,
+                }
+            )
+                .status(200)
+                .json(newUser._doc);
+        }
+
+    } catch (error) {
+        next(error)
+    }
+}
+
 
 // export all the functions
 export {
     signup,
-    signin
+    signin,
+    googleSingin
 }

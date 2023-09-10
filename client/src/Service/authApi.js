@@ -32,7 +32,24 @@ const register = async (userData) => {
     return response.data;
 };
 
+const regiterWithGoogle = async ({ displayName: name, photoURL: img, email }) => {
+
+    const response = await axios.post(`${BASE_URL}/api/auth/google`, { name, img, email }, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+    });
+
+    if (response.status !== 200) {
+        throw new Error("Error in signing in");
+    }
+    return response.data;
+
+}
+
 export {
     register,
-    signIn
+    signIn,
+    regiterWithGoogle
 }

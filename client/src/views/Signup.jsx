@@ -2,7 +2,12 @@ import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { register } from "../Service/authApi";
+import { register, regiterWithGoogle } from "../Service/authApi";
+import { auth, provider } from "../firebase";
+import { signInWithPopup } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/slices/userSlice";
+import Loading from "../components/Loading";
 
 const Signup = () => {
   const [user, setUser] = useState({
@@ -11,21 +16,35 @@ const Signup = () => {
     password: "",
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const registerMutation = useMutation(register, {
     onSuccess: (data) => {
-      console.log("This is data");
-      console.log(data);
-      // Handle successful registration here, e.g., redirect to a success page or show a success message.
-      console.log("Registration successful:", data);
-      // Optionally, you can navigate to a different page after successful registration.
-      navigate(-1); // Redirect to the login page after registration.
+      dispatch(login(data));
+      navigate("/"); // Redirect to the login page after registration.
     },
     onError: (error) => {
       // Handle registration error here, e.g., display an error message to the user.
       console.error("Registration error:", error);
     },
   });
+
+  const registerWithGoogleMutation = useMutation(regiterWithGoogle, {
+    onSuccess: (data) => {
+      dispatch(login(data));
+      navigate("/"); // Redirect to the login page after registration.
+    },
+  });
+
+  const signInWithGoogle = async () => {
+    await signInWithPopup(auth, provider)
+      .then((result) => {
+        registerWithGoogleMutation.mutate(result.user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const handleChange = async (e) => {
     e.preventDefault();
@@ -68,7 +87,6 @@ const Signup = () => {
                     </div>
 
                     <form onSubmit={handleChange}>
-                      <p className="mb-4">Register Yourself</p>
                       {/* Username input */}
                       <div className="relative mb-4">
                         <label
@@ -138,16 +156,37 @@ const Signup = () => {
                         </button>
                       </div>
                     </form>
-                    {/* Register button */}
+
+                    {/* loading area */}
+                    {(registerMutation.isLoading ||
+                      registerWithGoogleMutation.isLoading) && (
+                      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-75 flex justify-center items-center">
+                        <div className="flex flex-col items-center gap-1">
+                          <Loading />
+                          <p className="text-white text-x">Loading...</p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Divider text */}
+                    <div className="flex items-center justify-between mb-6">
+                      <hr className="flex-1 h-full bg-white" />
+                      <p className="px-4 text-sm text-white font-semibold">
+                        Or
+                      </p>
+                      <hr className="flex-1 h-full w-2 bg-white" />
+                    </div>
                     <div className="flex items-center justify-between pb-6">
-                      <p className="mb-0 mr-2">{`Already have an account?`}</p>
+                      <p className="mb-0 mr-2">{`Create account using Google`}</p>
+                      {/* Google button */}
                       <button
-                        type="button"
-                        className="px-4 py-2 border border-red-600 text-red-600 rounded hover:bg-red-600 hover:text-white focus:outline-none transition duration-300 ease-in-out"
-                        data-te-ripple-init
-                        data-te-ripple-color="light"
+                        className="p-2 bg-white text-white rounded-full shadow-md focus:outline-none"
+                        onClick={signInWithGoogle}
                       >
-                        Login
+                        <img
+                          src="https://www.vectorlogo.zone/logos/google/google-icon.svg"
+                          className="w-6 h-6 rounded-full"
+                        />
                       </button>
                     </div>
                   </div>

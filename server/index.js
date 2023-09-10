@@ -9,6 +9,7 @@ import authRoutes from './routes/auths.js';
 import videoRoutes from './routes/videos.js';
 import userRoutes from './routes/users.js';
 import commentRoutes from './routes/comments.js';
+import keyRoutes from './routes/keys.js';
 
 
 
@@ -54,6 +55,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/videos', videoRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/comments', commentRoutes);
+app.use('/api/keys', keyRoutes);
 
 
 // start the server
