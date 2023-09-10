@@ -8,6 +8,7 @@ import { signInWithPopup } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/slices/userSlice";
 import Loading from "../components/Loading";
+import { Logo, GoogleButton, SignUpForm } from "../components/index";
 
 const Signup = () => {
   const [user, setUser] = useState({
@@ -46,7 +47,11 @@ const Signup = () => {
       });
   };
 
-  const handleChange = async (e) => {
+  const handleChange = (name, value) => {
+    setUser({ ...user, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     await registerMutation.mutate(user);
   };
@@ -78,85 +83,13 @@ const Signup = () => {
                 <div className="px-4 md:px-0 lg:w-6/12">
                   <div className="md:mx-6 md:p-12">
                     {/* Logo */}
-                    <div className="text-center flex flex-col justify-center items-center">
-                      <h1 className=" w-min font-roboto bg-white text-red-600 text-5xl font-bold ml-4">
-                        <span className="text-white bg-red-600 p-1">Tube</span>
-                        Lite
-                      </h1>
-                      <h4 className="mb-12 mt-1 pb-1 text-xl font-semibold"></h4>
-                    </div>
-
-                    <form onSubmit={handleChange}>
-                      {/* Username input */}
-                      <div className="relative mb-4">
-                        <label
-                          htmlFor="name"
-                          className="text-white text-sm font-semibold"
-                        >
-                          Name:
-                        </label>
-                        <input
-                          type="text"
-                          className="w-full py-2 px-3 mt-1 shadow-inner rounded-md bg-[#4c4c4c] text-white placeholder-gray-400 focus:outline-none focus:ring focus:ring-red-500"
-                          placeholder="Abdul Mohiz"
-                          id="name"
-                          value={user.name}
-                          onChange={(e) =>
-                            setUser({ ...user, name: e.target.value })
-                          }
-                        />
-                      </div>
-
-                      {/* email input */}
-                      <div className="relative mb-4">
-                        <label
-                          htmlFor="email"
-                          className="text-white text-sm font-semibold"
-                        >
-                          Email:
-                        </label>
-                        <input
-                          type="text"
-                          className="w-full py-2 px-3 mt-1 shadow-inner rounded-md bg-[#4c4c4c] text-white placeholder-gray-400 focus:outline-none focus:ring focus:ring-red-500"
-                          placeholder="abdulmohiz@gmail.com"
-                          id="email"
-                          value={user.email}
-                          onChange={(e) =>
-                            setUser({ ...user, email: e.target.value })
-                          }
-                        />
-                      </div>
-
-                      {/* password input */}
-                      <div className="relative mb-4">
-                        <label
-                          htmlFor="password"
-                          className="text-white text-sm font-semibold"
-                        >
-                          Password:
-                        </label>
-                        <input
-                          type="password"
-                          className="w-full py-2 px-3 mt-1 shadow-inner rounded-md bg-[#4c4c4c] text-white placeholder-gray-400 focus:outline-none focus:ring focus:ring-red-500"
-                          id="password"
-                          value={user.password}
-                          onChange={(e) =>
-                            setUser({ ...user, password: e.target.value })
-                          }
-                        />
-                      </div>
-
-                      {/* Submit button */}
-                      <div className="mb-12 pb-1 pt-1 text-center">
-                        <button
-                          className="w-full px-4 py-2 bg-red-600 text-white  hover:shadow-xl rounded-lg focus:outline-none transition duration-300 ease-in-out"
-                          type="submit"
-                        >
-                          Signup
-                        </button>
-                      </div>
-                    </form>
-
+                    <Logo />
+                    {/* Form */}
+                    <SignUpForm
+                      user={user}
+                      handleChange={handleChange}
+                      handleSubmit={handleSubmit}
+                    />
                     {/* loading area */}
                     {(registerMutation.isLoading ||
                       registerWithGoogleMutation.isLoading) && (
@@ -176,19 +109,7 @@ const Signup = () => {
                       </p>
                       <hr className="flex-1 h-full w-2 bg-white" />
                     </div>
-                    <div className="flex items-center justify-between pb-6">
-                      <p className="mb-0 mr-2">{`Create account using Google`}</p>
-                      {/* Google button */}
-                      <button
-                        className="p-2 bg-white text-white rounded-full shadow-md focus:outline-none"
-                        onClick={signInWithGoogle}
-                      >
-                        <img
-                          src="https://www.vectorlogo.zone/logos/google/google-icon.svg"
-                          className="w-6 h-6 rounded-full"
-                        />
-                      </button>
-                    </div>
+                    <GoogleButton onClick={signInWithGoogle} />
                   </div>
                 </div>
               </div>
