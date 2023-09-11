@@ -4,8 +4,8 @@ import { BASE_URL } from './config';
 
 
 const getVideos = async ({ queryKey }) => {
+    // the key will be random, trending, subscribed, search, tag etc
     let key = queryKey[1];
-
     const response = await axios.get(`${BASE_URL}/api/videos/${key}`);
     if (response.status !== 200) {
         throw new Error('getVideos fetch not ok');
@@ -27,8 +27,25 @@ const getVideos = async ({ queryKey }) => {
 
 };
 
+const getVideoById = async ({ queryKey }) => {
+    const id = queryKey[1];
+
+    const videoResponse = await axios.get(`${BASE_URL}/api/videos/find/${id}`);
+
+    const userResponse = await axios.get(`${BASE_URL}/api/users/find/${videoResponse.data.userId}`);
+
+    const commentResponse = await axios.get(`${BASE_URL}/api/comments/${id}`);
+
+    if (videoResponse.status !== 200 || userResponse.status !== 200 || commentResponse.status !== 200) {
+        throw new Error('getVideoById fetch not ok');
+    }
+    const data = { ...videoResponse.data, userId: userResponse.data, comments: commentResponse.data };
+    return data;
+}
+
 
 
 export {
     getVideos,
+    getVideoById
 }
