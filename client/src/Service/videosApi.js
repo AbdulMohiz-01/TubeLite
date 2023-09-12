@@ -39,7 +39,9 @@ const getVideoById = async ({ queryKey }) => {
     if (videoResponse.status !== 200 || userResponse.status !== 200 || commentResponse.status !== 200) {
         throw new Error('getVideoById fetch not ok');
     }
-    const data = { ...videoResponse.data, userId: userResponse.data, comments: commentResponse.data };
+    // eslint-disable-next-line no-unused-vars
+    const { userId, ...rest } = videoResponse.data;
+    const data = { ...rest, user: userResponse.data };
     return data;
 }
 

@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import sideBar from "./slices/sidebarSlice.js";
 import user from "./slices/userSlice.js";
+import video from "./slices/videoSlice.js";
 
 import {
     persistStore,
@@ -22,7 +23,8 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, combineReducers({
     sideBar,
-    user
+    user,
+    video
 }))
 const store = configureStore({
     reducer: persistedReducer,
