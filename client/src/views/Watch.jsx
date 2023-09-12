@@ -17,7 +17,6 @@ const Watch = () => {
   const { video_id } = useParams();
   const currentUser = useSelector((state) => state.user.currentUser);
   const video = useSelector((state) => state.video.currentVideo);
-  console.log(video);
   const dispatch = useDispatch();
 
   const { isLoading } = useQuery(["watch", video_id], getVideoById, {
@@ -43,12 +42,9 @@ const Watch = () => {
         <section className="flex flex-col gap-3 w-7/10">
           <VideoPlayer sourceURL={video.videoUrl} thumbnail={video.thumbnail} />
           <VideoActions
-            title={video.title}
             channelImg={video.user.img}
             channelSubs={video.user.subscribers}
             channelName={video.user.name}
-            likes={video.likes}
-            dislikes={video.dislikes}
             currentUser={currentUser}
           />
           {/*  views, timeAgo, tags, description */}

@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 const ActionButton = ({ Icon, text, flag = true, onClick, isLiked }) => {
   const classNames = clsx(
-    flag ? "flex items-center gap-1 text-white" : "comment-actions",
+    flag ? "flex items-center gap-1 text-white px-3" : "comment-actions",
   );
   return (
     <>

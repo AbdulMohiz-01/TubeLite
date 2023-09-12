@@ -4,6 +4,7 @@ import { createError } from "./error.js";
 
 const verifyToken = (req, res, next) => {
     const token = req.cookies.access_token;
+    console.log(req.cookies.access_token)
     if (!token) {
         const error = createError(401, "Unauthorized");
         return next(error);

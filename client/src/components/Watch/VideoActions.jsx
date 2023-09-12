@@ -2,24 +2,61 @@ import PropTypes from "prop-types";
 import ActionButton from "./ActionButton.jsx";
 import { ThumbsUp, ThumbsDown, Share2, ArrowDownToLine } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { actions } from "../../Service/usersApi.js";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  like,
+  dislike,
+  incrementSubscribers,
+  decrementSubscribers,
+} from "../../redux/slices/videoSlice.js";
+import { subscription } from "../../redux/slices/userSlice.js";
 
-const VideoActions = ({
-  title,
-  channelName,
-  channelImg,
-  channelSubs,
-  likes,
-  dislikes,
-  currentUser,
-}) => {
+const VideoActions = ({ channelName, channelImg, currentUser }) => {
   const navigate = useNavigate();
-  const handleLike = () => {};
+  const dispatch = useDispatch();
+  const video = useSelector((state) => state.video.currentVideo);
+  console.log(video.user);
+
+  const handleLike = () => {
+    if (currentUser) {
+      actions("like", video._id);
+      dispatch(like(currentUser._id));
+    } else {
+      navigate("/signup");
+    }
+  };
+
+  const handleDislike = () => {
+    if (currentUser) {
+      actions("dislike", video._id);
+      dispatch(dislike(currentUser._id));
+    } else {
+      navigate("/signup");
+    }
+  };
+
+  const handleSubscribe = () => {
+    if (currentUser) {
+      if (!currentUser?.subscribedUsers.includes(video.user._id)) {
+        actions("sub", video.user._id);
+        dispatch(subscription(video.user._id));
+        dispatch(incrementSubscribers());
+      } else {
+        actions("unsub", video.user._id);
+        dispatch(subscription(video.user._id));
+        dispatch(decrementSubscribers());
+      }
+    } else {
+      navigate("/signup");
+    }
+  };
 
   return (
     <>
       {/* Video info */}
       <div className="flex flex-col gap-3">
-        <h1 className="text-white text-xl font-bold">{title}</h1>
+        <h1 className="text-white text-xl font-medium">{video.title}</h1>
         <div className="flex flex-row items-center justify-between gap-1">
           {/* channel info */}
           <div className="flex flex-row gap-4">
@@ -29,11 +66,18 @@ const VideoActions = ({
               className="w-12 h-12 rounded-full"
             />
             <div>
-              <h2 className="font-bold text-white">{channelName}</h2>
-              <p className="text-gray-500 text-sm">{channelSubs} subscribers</p>
+              <h2 className=" text-white font-medium">{channelName}</h2>
+              <p className="text-gray-500 text-sm">
+                {video.user.subscribers} subscribers
+              </p>
             </div>
-            <button className="bg-white text-black px-6 rounded-full flex items-center">
-              <span className="text-sm font-semibold">SUBSCRIBE</span>
+            <button
+              className="bg-white text-black px-6 rounded-full flex items-center"
+              onClick={handleSubscribe}
+            >
+              {currentUser?.subscribedUsers.includes(video.user._id)
+                ? "Subscribed"
+                : "Subscribe"}
             </button>
           </div>
           {/* actions */}
@@ -42,12 +86,17 @@ const VideoActions = ({
             <div className="flex flex-row gap-2 bg-gray-1000 px-4 py-2 items-center rounded-full">
               <ActionButton
                 Icon={ThumbsUp}
-                text={likes.length}
+                text={video.likes.length}
                 onClick={handleLike}
-                isLiked={likes.includes(currentUser._id)}
+                isLiked={video.likes.includes(currentUser._id)}
               />
               <span className="text-gray-500">|</span>
-              <ActionButton Icon={ThumbsDown} text={dislikes.length} />
+              <ActionButton
+                Icon={ThumbsDown}
+                text={video.dislikes.length}
+                onClick={handleDislike}
+                isLiked={video.dislikes.includes(currentUser._id)}
+              />
             </div>
 
             {/* share button */}
@@ -69,11 +118,8 @@ const VideoActions = ({
 export default VideoActions;
 
 VideoActions.propTypes = {
-  title: PropTypes.string.isRequired,
   channelName: PropTypes.string.isRequired,
   channelImg: PropTypes.string.isRequired,
   channelSubs: PropTypes.string.isRequired,
-  likes: PropTypes.string.isRequired,
-  dislikes: PropTypes.string.isRequired,
   currentUser: PropTypes.object,
 };

@@ -25,7 +25,17 @@ const findBatchUsers = async ({ queryKey }) => {
     return response.data;
 }
 
+const actions = async (action, videoId) => {
+    const response = await axios.put(`${BASE_URL}/api/users/${action}/${videoId}`, {}, { withCredentials: true });
+    // if (response.status != 200) {
+    //     throw new Error(`${action} complete not ok`);
+    // }
+    console.log(response)
+    return response.data;
+}
+
 export {
     findUser,
-    findBatchUsers
+    findBatchUsers,
+    actions
 }
