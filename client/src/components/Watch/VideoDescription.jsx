@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
 import numeral from "numeral";
 import { format } from "timeago.js";
+import { useSelector, useDispatch } from "react-redux";
 
 const VideoDescription = ({ views, timeAgo, tags, description }) => {
+  const video = useSelector((state) => state.video.currentVideo);
   return (
     <>
       {/* Video Description */}
@@ -10,13 +12,13 @@ const VideoDescription = ({ views, timeAgo, tags, description }) => {
         {/* views time and tags section */}
         <div className="flex justify-start items-center gap-1 font-sans font-semibold w-full">
           <span className="text-white text-s ">
-            {numeral(views).format("0a").toUpperCase()} views
+            {numeral(video.views).format("0a").toUpperCase()} views
           </span>
           <span className="text-white text-s">•</span>
 
-          <span className="text-white text-s">{format(timeAgo)}</span>
+          <span className="text-white text-s">{format(video.timeAgo)}</span>
           <div className="flex gap-2 ml-3">
-            {tags?.map((tag, index) => (
+            {video.tags?.map((tag, index) => (
               <span key={index} className="text-white text-s">
                 {`#`}
                 {tag}
@@ -27,7 +29,7 @@ const VideoDescription = ({ views, timeAgo, tags, description }) => {
 
         {/* description section */}
         <div className="p-2 justify-evenly">
-          <p className="text-white text-md">{description}</p>
+          <p className="text-white text-md">{video.desc}</p>
         </div>
       </div>
     </>

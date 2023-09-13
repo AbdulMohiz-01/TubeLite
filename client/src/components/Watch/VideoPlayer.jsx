@@ -5,7 +5,7 @@ export default function VideoPlayer({ sourceURL, thumbnail }) {
   const videoStyle = {
     width: "100%", // Set the width to 100% to make it responsive
     height: "570px", // Let the height adjust based on the aspect ratio
-    backgroundColor: "#121212", // Set the background color to black
+    backgroundColor: "black",
     border: "none",
   };
 

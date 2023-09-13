@@ -16,7 +16,6 @@ const VideoActions = ({ channelName, channelImg, currentUser }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const video = useSelector((state) => state.video.currentVideo);
-  console.log(video.user);
 
   const handleLike = () => {
     if (currentUser) {

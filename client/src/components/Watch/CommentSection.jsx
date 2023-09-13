@@ -1,12 +1,56 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
 import { Send } from "lucide-react";
 import Comment from "./Comment";
 import { useSelector } from "react-redux";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { getCommentsByVideoId, postComment } from "../../Service/commentsApi";
+import Loading from "../Loading";
 
-const CommentSection = ({ noOfComments, channelImg, comments }) => {
+const CommentSection = () => {
   const [input, setInput] = useState("");
+  const [comments, setComments] = useState([]); // [comment1, comment2, ...]
+  const [disabled, setDisabled] = useState(false);
   const currentUser = useSelector((state) => state.user.currentUser);
+  const video = useSelector((state) => state.video.currentVideo);
+  const { isLoading } = useQuery(
+    ["comments", video._id],
+    getCommentsByVideoId,
+    {
+      onSuccess: (data) => {
+        setComments(data);
+      },
+    },
+  );
+
+  const commentMutation = useMutation(postComment, {
+    onSuccess: (data) => {
+      setComments((prev) => [...prev, data]);
+      setInput("");
+      setDisabled(false);
+    },
+    onLoading: () => {
+      setDisabled(true);
+    },
+  });
+
+  const handleAddComment = () => {
+    // add comment to db
+    commentMutation.mutate({
+      text: input,
+      videoId: video._id,
+    });
+  };
+
+  if (isLoading)
+    return (
+      <>
+        <div className="w-full flex justify-center items-center">
+          <Loading />
+          <p className="text-white text-md">Loading...</p>
+        </div>
+      </>
+    );
+
   return (
     <>
       {/* Video comments section */}
@@ -15,7 +59,7 @@ const CommentSection = ({ noOfComments, channelImg, comments }) => {
         <div className="flex justify-start items-center gap-3 font-semibold w-full">
           <span className="text-gray-500 font-normal text-s">
             {" "}
-            {noOfComments} comments
+            {comments.length || 0} comments
           </span>
         </div>
 
@@ -37,7 +81,11 @@ const CommentSection = ({ noOfComments, channelImg, comments }) => {
               onChange={(e) => setInput(e.target.value)}
             />
             {input && ( // Render the button only if input is not empty
-              <button className="bg-background text-black px-2 py-0 flex items-center bg-gradient-to-t from-blue-vivid to-blue-700 transition-all duration-300">
+              <button
+                className="bg-background text-black px-2 py-0 flex items-center justify-center rounded-full group-focus:border-b-2"
+                onClick={handleAddComment}
+                disabled={disabled}
+              >
                 <Send size={24} color="white" />
               </button>
             )}
@@ -46,10 +94,14 @@ const CommentSection = ({ noOfComments, channelImg, comments }) => {
 
         {/* all comments */}
         <div className="flex flex-col gap-4 justify-start">
-          {/* sample comment */}
-          {comments ? (
-            comments?.map((comment, index) => (
-              <Comment key={index} channelImg={channelImg} comment={comment} />
+          {comments.length !== 0 ? (
+            comments.map((comment) => (
+              <Comment
+                key={comment._id} // Use a unique identifier like _id as the key
+                userId={comment.userId} // Access the userId using comment.userId
+                description={comment.desc} // Access the comment text using comment.desc
+                timeAgo={comment.updatedAt} // Access the updatedAt property of the comment
+              />
             ))
           ) : (
             <p className="text-white text-md">No comments yet</p>
@@ -58,12 +110,6 @@ const CommentSection = ({ noOfComments, channelImg, comments }) => {
       </div>
     </>
   );
-};
-
-CommentSection.propTypes = {
-  noOfComments: PropTypes.string.isRequired,
-  channelImg: PropTypes.string.isRequired,
-  comments: PropTypes.array,
 };
 
 export default CommentSection;

@@ -54,11 +54,7 @@ const Watch = () => {
             timeAgo={video.createdAt}
             description={video.desc}
           />
-          {/* <CommentSection
-            noOfComments={comments.length}
-            channelImg={user.img}
-            comments={comments}
-          /> */}
+          <CommentSection />
         </section>
 
         {/* Recommendation section */}
