@@ -101,6 +101,8 @@ const CommentSection = () => {
                 userId={comment.userId} // Access the userId using comment.userId
                 description={comment.desc} // Access the comment text using comment.desc
                 timeAgo={comment.updatedAt} // Access the updatedAt property of the comment
+                likes={comment.likes} // Access the likes property of the comment
+                dislikes={comment.dislikes} // Access the dislikes property of the comment
               />
             ))
           ) : (

@@ -44,8 +44,8 @@ const Comment = ({ userId, description, timeAgo, likes, dislikes }) => {
 
       {/* actions */}
       <div className="flex flex-row ">
-        <ActionButton Icon={ThumbsUp} text="99" flag={false} />
-        <ActionButton Icon={ThumbsDown} text="999" flag={false} />
+        <ActionButton Icon={ThumbsUp} text={likes} flag={false} />
+        <ActionButton Icon={ThumbsDown} text={dislikes} flag={false} />
         <ActionButton Icon={Reply} text="reply" flag={false} />
       </div>
     </div>

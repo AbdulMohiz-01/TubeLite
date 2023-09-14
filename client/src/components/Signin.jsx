@@ -21,7 +21,6 @@ const Signin = ({ closeModal }) => {
   const signInMutation = useMutation(signIn, {
     onSuccess: (data) => {
       dispatch(login(data));
-      console.log(data);
       closeModal();
       queryClient.invalidateQueries("someQueryKey");
     },

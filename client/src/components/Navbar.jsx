@@ -4,13 +4,19 @@ import Modal from "./Modal";
 import Signin from "./Signin";
 import { useSelector } from "react-redux";
 import Dropdown from "./Dropdown";
+import Upload from "./Upload";
 
 const Navbar = () => {
   const user = useSelector((state) => state.user.currentUser);
   const [isModel, setIsModel] = useState(false);
+  const [isUploadOpen, setIsUploadOpen] = useState(false);
 
-  const closeFunc = () => {
+  const closeSignInModal = () => {
     setIsModel(false);
+  };
+
+  const closeUploadModal = () => {
+    setIsUploadOpen(false);
   };
 
   return (
@@ -34,7 +40,9 @@ const Navbar = () => {
         <div className="flex items-center">
           {user ? (
             <>
-              <Plus className="text-white mr-4 cursor-pointer" />
+              <button onClick={() => setIsUploadOpen(true)}>
+                <Plus className="text-white mr-4 cursor-pointer" />
+              </button>
               <div className="flex items-center flex-col gap-1">
                 <Dropdown img={user.img} />
               </div>
@@ -50,7 +58,12 @@ const Navbar = () => {
 
           {isModel && (
             <Modal>
-              <Signin closeModal={closeFunc} />
+              <Signin closeModal={closeSignInModal} />
+            </Modal>
+          )}
+          {isUploadOpen && (
+            <Modal>
+              <Upload closeModal={closeUploadModal} />
             </Modal>
           )}
         </div>
