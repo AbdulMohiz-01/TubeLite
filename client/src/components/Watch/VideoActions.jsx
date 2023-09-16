@@ -16,7 +16,7 @@ const VideoActions = ({ channelName, channelImg, currentUser }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const video = useSelector((state) => state.video.currentVideo);
-
+// to handle the likes
   const handleLike = () => {
     if (currentUser) {
       actions("like", video._id);
