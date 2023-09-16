@@ -13,7 +13,7 @@ export default function Dropdown({ img }) {
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button>
-            <img src={img} alt="avatar" className="w-10 h-10 rounded-full" />
+            <img src={img} alt="avatar" className="w-8 h-8 rounded-full" />
           </Menu.Button>
         </div>
         <Transition

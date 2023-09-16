@@ -3,23 +3,21 @@ import { ThumbsUp, ThumbsDown, Reply, Loader } from "lucide-react";
 import ActionButton from "./ActionButton";
 import { format } from "timeago.js";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useId } from "react";
 import { findUser } from "../../Service/usersApi";
+import Loading from "../Loading";
 
 const Comment = ({ userId, description, timeAgo, likes, dislikes }) => {
   const [owner, setOwner] = useState(null);
-  const { isLoading } = useQuery([description, userId], findUser, {
+  const id = useId();
+  const { isLoading } = useQuery([id, userId], findUser, {
     onSuccess: (data) => {
       setOwner(data);
     },
   });
 
   if (isLoading) {
-    return (
-      <>
-        <Loader color="white" />
-      </>
-    );
+    return null;
   }
 
   return (

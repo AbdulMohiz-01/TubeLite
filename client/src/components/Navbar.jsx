@@ -20,18 +20,18 @@ const Navbar = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 bg-background z-50 p-4">
+    <div className="fixed top-0 left-0 right-0 bg-background z-20 p-2">
       <div className="flex items-center justify-between px-4 h-12">
         <div className="flex items-center">
           <h1 className="font-roboto bg-white text-red-600 text-2xl font-bold ml-4">
             <span className="text-white bg-red-600 p-1">Tube</span>Lite
           </h1>
         </div>
-        <div className="bg-gray-1000 rounded-full p-3 flex w-1/3">
+        <div className="bg-gray-1000 rounded-full p-2 flex w-1/3">
           <input
             type="text"
             placeholder="Search..."
-            className="bg-transparent text-white placeholder-gray-400 ml-2 outline-none w-full"
+            className="bg-transparent text-white placeholder-gray-400 ml-2 outline-none w-full text-sm"
           />
           <button>
             <Search className="text-white" />

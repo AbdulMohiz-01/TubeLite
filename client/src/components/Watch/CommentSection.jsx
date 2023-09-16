@@ -12,6 +12,7 @@ const CommentSection = () => {
   const [disabled, setDisabled] = useState(false);
   const currentUser = useSelector((state) => state.user.currentUser);
   const video = useSelector((state) => state.video.currentVideo);
+  const [stillLoading, setStillLoading] = useState(true);
   const { isLoading } = useQuery(
     ["comments", video._id],
     getCommentsByVideoId,
@@ -46,7 +47,7 @@ const CommentSection = () => {
       <>
         <div className="w-full flex justify-center items-center">
           <Loading />
-          <p className="text-white text-md">Loading...</p>
+          <p className="text-white text-xs">Loading comments...</p>
         </div>
       </>
     );
@@ -108,6 +109,10 @@ const CommentSection = () => {
           ) : (
             <p className="text-white text-md">No comments yet</p>
           )}
+          {
+            // set loading to false
+            // setStillLoading(false)
+          }
         </div>
       </div>
     </>
