@@ -12,8 +12,9 @@ import {
   VideoDescription,
   CommentSection,
 } from "../components/Watch/index";
+import ErrorBoundary from "../components/ErrorBoundry";
 
-const Watch = () => {
+const WatchInsider = () => {
   const { video_id } = useParams();
   const currentUser = useSelector((state) => state.user.currentUser);
   const video = useSelector((state) => state.video.currentVideo);
@@ -71,6 +72,16 @@ const Watch = () => {
           </div>
         </section>
       </main>
+    </>
+  );
+};
+
+const Watch = () => {
+  return (
+    <>
+      <ErrorBoundary>
+        <WatchInsider />
+      </ErrorBoundary>
     </>
   );
 };
