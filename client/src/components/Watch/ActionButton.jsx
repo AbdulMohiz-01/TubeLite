@@ -3,13 +3,15 @@ import clsx from "clsx";
 
 const ActionButton = ({ Icon, text, flag = true, onClick, isLiked }) => {
   const classNames = clsx(
-    flag ? "flex items-center gap-1 text-white px-3" : "comment-actions",
+    flag
+      ? "flex items-center justify-center gap-1 text-white px-2"
+      : "comment-actions",
   );
   return (
     <>
       <button className={classNames} onClick={onClick}>
         <Icon size={20} color={isLiked ? "red" : "white"} />
-        <span>{text}</span>
+        <span className="text-sm">{text}</span>
       </button>
     </>
   );

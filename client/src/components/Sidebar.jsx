@@ -17,7 +17,7 @@ const Sidebar = () => {
   const user = useSelector((state) => state.user.currentUser);
 
   return (
-    <div className="custom-scrollbar bg-background h-[89.6vh] overflow-y-scroll min-w-min flex flex-col bg-dark p-3 fixed left-1 mt-20 -pr-3">
+    <div className="custom-scrollbar bg-background h-[89.6vh] overflow-y-scroll min-w-min flex flex-col bg-dark p-3 fixed left-1 mt-16 -pr-3">
       {/* Explore Section */}
       <section className="flex flex-col gap-2">
         <h4 className="sidebar-section-title">Explore</h4>
@@ -45,7 +45,7 @@ const Sidebar = () => {
           {user ? (
             <Subscriptions user={user} />
           ) : (
-            <p className="text-gray-600 w-40">
+            <p className="text-gray-600 text-xs w-40">
               Sign in to see your subscriptions
             </p>
           )}
@@ -75,7 +75,7 @@ const Subscriptions = ({ user }) => {
   const items = results.data ?? [];
 
   if (items.length === 0)
-    return <p className="text-gray-600 w-40">No Subscriptions</p>;
+    return <p className="text-gray-600 w-40 text-s">No Subscriptions</p>;
 
   // Determine the number of items to display based on showAll state
   const displayItemCount = showAll ? items.length : 4;

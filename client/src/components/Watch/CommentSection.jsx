@@ -58,7 +58,7 @@ const CommentSection = () => {
       <div className="flex flex-col gap-4 justify-start">
         {/* no of comments */}
         <div className="flex justify-start items-center gap-3 font-semibold w-full">
-          <span className="text-gray-500 font-normal text-s">
+          <span className="text-gray-500 font-normal text-sm">
             {" "}
             {comments.length || 0} comments
           </span>
@@ -76,7 +76,7 @@ const CommentSection = () => {
           </div>
           <div className="flex w-full group">
             <input
-              className="w-full bg-background text-white p-2 text-s font-normal outline-none focus:border-b-2 focus:border-b-blue-vivid"
+              className="w-full bg-background text-white p-2 text-sm font-normal outline-none focus:border-b-2 focus:border-b-blue-vivid"
               placeholder="Add a public comment..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -87,7 +87,7 @@ const CommentSection = () => {
                 onClick={handleAddComment}
                 disabled={disabled}
               >
-                <Send size={24} color="white" />
+                <Send size={20} color="white" />
               </button>
             )}
           </div>

@@ -15,11 +15,11 @@ const Cards = ({ video }) => {
     <>
       <button className="overflow-hidden w-full" onClick={hangleClick}>
         {/* Video Thumbnail */}
-        <div className="relative bg-gray-1000 rounded-xl">
+        <div className="relative bg-gray-1000 rounded-2xl">
           <img
             src={video.thumbnail}
             alt="Video Thumbnail"
-            className="w-full h-48 object-cover rounded-xl"
+            className="w-full h-44 object-cover rounded-2xl"
           />
         </div>
 
@@ -31,9 +31,11 @@ const Cards = ({ video }) => {
             className="w-8 h-8 rounded-full"
           />
           <div className="flex flex-col items-start justify-start">
-            <h3 className="text-white text-md line-clamp-1">{video.title}</h3>
-            <p className="text-gray-500 text-sm">{video.user.name}</p>
-            <p className="text-gray-500 text-sm">
+            <h3 className="text-white text-sm line-clamp-2 text-left">
+              {video.title}
+            </h3>
+            <p className="text-gray-400 text-xs">{video.user.name}</p>
+            <p className="text-gray-400 text-xs">
               {formattedViews} views • {format(video.createdAt)}
             </p>
           </div>

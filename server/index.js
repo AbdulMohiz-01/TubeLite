@@ -10,6 +10,7 @@ import videoRoutes from './routes/videos.js';
 import userRoutes from './routes/users.js';
 import commentRoutes from './routes/comments.js';
 import keyRoutes from './routes/keys.js';
+import aiRoutes from './routes/ais.js';
 
 
 
@@ -56,7 +57,7 @@ app.use('/api/videos', videoRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/keys', keyRoutes);
-
+app.use('/api/ai', aiRoutes);
 
 // start the server
 app.listen(3000, () => {

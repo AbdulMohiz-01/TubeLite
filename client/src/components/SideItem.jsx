@@ -32,11 +32,11 @@ const SideItem = (props) => {
   return (
     <button onClick={() => handleClick()} className={selected}>
       <Icon
-        size={24}
+        size={20}
         className="text-white cursor-pointer"
         color={selectedIcon}
       />
-      <p className="text-white text-sm">{text}</p>
+      <p className="text-white text-sm font-normal">{text}</p>
     </button>
   );
 };

@@ -16,7 +16,7 @@ const VideoActions = ({ channelName, channelImg, currentUser }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const video = useSelector((state) => state.video.currentVideo);
-// to handle the likes
+  // to handle the likes
   const handleLike = () => {
     if (currentUser) {
       actions("like", video._id);
@@ -54,29 +54,35 @@ const VideoActions = ({ channelName, channelImg, currentUser }) => {
   return (
     <>
       {/* Video info */}
-      <div className="flex flex-col gap-3">
-        <h1 className="text-white text-xl font-medium">{video.title}</h1>
+      <div className="flex flex-col gap-2">
+        <h1 className="text-white text-lg font-normal">{video.title}</h1>
         <div className="flex flex-row items-center justify-between gap-1">
           {/* channel info */}
           <div className="flex flex-row gap-4">
-            <img
-              src={channelImg}
-              alt="channel logo"
-              className="w-12 h-12 rounded-full"
-            />
-            <div>
-              <h2 className=" text-white font-medium">{channelName}</h2>
-              <p className="text-gray-500 text-sm">
-                {video.user.subscribers} subscribers
-              </p>
+            <div className="flex gap-2">
+              <img
+                src={channelImg}
+                alt="channel logo"
+                className="w-10 h-10 rounded-full"
+              />
+              <div>
+                <h2 className=" text-white text-s font-normal">
+                  {channelName}
+                </h2>
+                <p className="text-gray-500 text-xs">
+                  {video.user.subscribers} subscribers
+                </p>
+              </div>
             </div>
             <button
-              className="bg-white text-black px-6 rounded-full flex items-center"
+              className="bg-white text-black px-3 rounded-full flex items-center"
               onClick={handleSubscribe}
             >
-              {currentUser?.subscribedUsers.includes(video.user._id)
-                ? "Subscribed"
-                : "Subscribe"}
+              <p className="text-sm font-semibold">
+                {currentUser?.subscribedUsers.includes(video.user._id)
+                  ? "Subscribed"
+                  : "Subscribe"}
+              </p>
             </button>
           </div>
           {/* actions */}

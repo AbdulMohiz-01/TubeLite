@@ -7,13 +7,15 @@ import { persistor } from "./redux/store.js";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { PersistGate } from "redux-persist/integration/react";
+import { Suspense } from "react";
+import Loading from "./components/Loading";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // 15 secs for cache time
-      cacheTime: 15 * 1000,
-      staleTime: 15 * 1000,
+      // 60 secs for cache time
+      cacheTime: 60 * 1000,
+      staleTime: 60 * 1000,
       retry: 3,
       // refetchInterval: 5 * 60 * 1000, // milliseconds
       // Infinite loading: Specify how to get more data for pagination
@@ -27,7 +29,16 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
         <QueryClientProvider client={queryClient}>
-          <App />
+          <Suspense
+            fallback={
+              <div className="w-full h-screen flex justify-center items-center">
+                <Loading />{" "}
+                <p className="text-white text-sm font-semibold">Loading...</p>
+              </div>
+            }
+          >
+            <App />
+          </Suspense>
         </QueryClientProvider>
       </PersistGate>
     </Provider>

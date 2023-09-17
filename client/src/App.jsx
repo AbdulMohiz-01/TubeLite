@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./views/Home";
-import { lazy, Suspense } from "react";
-import Loading from "./components/Loading";
+import { lazy } from "react";
+import NotFound from "./components/NotFound";
 
 const LazySignup = lazy(() => import("./views/Signup"));
 const LazyWatch = lazy(() => import("./views/Watch"));
@@ -12,21 +12,13 @@ function App() {
     <>
       <div className="h-screen bg-background p-4 custom-scrollbar overflow-y-scroll">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route index path="/" element={<Home />} />
+          <Route path="/signup" element={<LazySignup />} />
+          <Route path="/watch/:video_id" element={<LazyWatch />} />
+
+          {/* Define the Not Found route at the end */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
-        <Suspense
-          fallback={
-            <div className="w-full h-screen flex justify-center items-center">
-              <Loading />{" "}
-              <p className="text-white text-sm font-semibold">Loading...</p>
-            </div>
-          }
-        >
-          <Routes>
-            <Route path="/signup" element={<LazySignup />} />
-            <Route path="/watch/:video_id" element={<LazyWatch />} />
-          </Routes>
-        </Suspense>
       </div>
     </>
   );

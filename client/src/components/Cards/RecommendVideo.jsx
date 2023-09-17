@@ -1,15 +1,15 @@
 const RecommendVideo = () => {
   return (
-    <div className="flex gap-3">
-      <div className="w-2/3 h-28 bg-gray-1000 rounded-lg">
+    <div className="flex gap-2">
+      <div className="w-2/3 h-24 bg-gray-1000 rounded-lg">
         {/* Recommended video thumbnail */}
         <img
           src="https://images.pexels.com/photos/3165335/pexels-photo-3165335.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          className="rounded-lg h-28 w-full object-cover"
+          className="rounded-lg h-24 w-full object-cover"
         />
       </div>
       <div className="flex flex-col gap-1">
-        <h3 className="text-white text-s font-semibold w-52 line-clamp-2">
+        <h3 className="text-white text-sm font-normal w-52 line-clamp-2">
           Recommended Video Title 1 Lorem ipsum dolor sit amet consectetur
           adipisicing elit. Adipisci aspernatur enim nobis, necessitatibus amet
           quisquam, autem odio illo similique expedita, minima modi unde

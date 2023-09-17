@@ -29,7 +29,7 @@ export default function Dropdown({ img }) {
             <div className="px-1 py-1 ">
               <Menu.Item>
                 <button className="bg-gray-1000 text-white group flex gap-2 w-full items-center rounded-md px-2 py-2 text-sm hover:bg-red-800">
-                  <Settings size={24} color={"white"} />
+                  <Settings size={20} color={"white"} />
                   Settings
                 </button>
               </Menu.Item>
@@ -40,7 +40,7 @@ export default function Dropdown({ img }) {
                   className="bg-gray-1000 text-white group flex gap-2 w-full items-center rounded-md px-2 py-2 text-sm hover:bg-red-800"
                   onClick={() => dispatch(logout())}
                 >
-                  <LogOut size={24} color={"white   "} />
+                  <LogOut size={20} color={"white   "} />
                   Logout
                 </button>
               </Menu.Item>

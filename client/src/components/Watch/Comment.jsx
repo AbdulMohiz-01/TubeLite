@@ -5,7 +5,6 @@ import { format } from "timeago.js";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useId } from "react";
 import { findUser } from "../../Service/usersApi";
-import Loading from "../Loading";
 
 const Comment = ({ userId, description, timeAgo, likes, dislikes }) => {
   const [owner, setOwner] = useState(null);
@@ -28,15 +27,15 @@ const Comment = ({ userId, description, timeAgo, likes, dislikes }) => {
           <img
             src={owner.img}
             alt="channel logo"
-            className="w-10 h-10 rounded-full"
+            className="w-8 h-8 rounded-full"
           />
         </div>
         <div className="flex flex-col gap-1 w-full">
           <div className="flex flex-row justify-start items-center gap-2">
-            <h3 className="text-white text-md font-medium">{owner.name}</h3>
-            <span className="text-gray-400 text-sm">{format(timeAgo)}</span>
+            <h3 className="text-white text-sm font-normal">{owner.name}</h3>
+            <span className="text-gray-400 text-xs">{format(timeAgo)}</span>
           </div>
-          <p className="text-gray-400 text-md">{description}</p>
+          <p className="text-gray-400 text-sm">{description}</p>
         </div>
       </div>
 

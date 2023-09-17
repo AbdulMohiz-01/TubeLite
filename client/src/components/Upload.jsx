@@ -15,8 +15,8 @@ const Upload = ({ closeModal }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-gray-1000 p-8 rounded-lg shadow-md w-3/4 min-h-min">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[10000]">
+      <div className="bg-gray-1000 p-8 rounded-lg shadow-md w-3/4 min-h-min z-50">
         <div className="w-full flex justify-between items-center">
           <h2 className="text-2xl font-semibold mb-4 text-white">Upload</h2>
           <button
@@ -91,8 +91,8 @@ const Upload = ({ closeModal }) => {
             <div>
               <button class="btn">
                 <svg
-                  height="24"
-                  width="24"
+                  height="20"
+                  width="20"
                   fill="#FFFFFF"
                   viewBox="0 0 24 24"
                   data-name="Layer 1"

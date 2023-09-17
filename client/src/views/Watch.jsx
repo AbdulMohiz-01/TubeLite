@@ -38,29 +38,22 @@ const WatchInsider = () => {
   return (
     <>
       <Navbar />
-      <main className="flex gap-4 min-h-min mx-12 my-6 mt-[4.5rem]">
+      <main className="flex gap-4 min-h-min mx-12 my-6 mt-[3.3rem]">
         {/* Video section */}
-        <section className="flex flex-col gap-3 w-7/10">
+        <section className="flex flex-col gap-2 w-7/10">
           <VideoPlayer sourceURL={video.videoUrl} thumbnail={video.thumbnail} />
           <VideoActions
             channelImg={video.user.img}
-            channelSubs={video.user.subscribers}
             channelName={video.user.name}
             currentUser={currentUser}
           />
-          {/*  views, timeAgo, tags, description */}
-          <VideoDescription
-            views={video.views}
-            tags={video.tags}
-            timeAgo={video.createdAt}
-            description={video.desc}
-          />
+          <VideoDescription />
           <CommentSection />
         </section>
 
         {/* Recommendation section */}
         <section className="flex flex-col gap-4 w-3/10">
-          <h2 className="text-white text-xl font-bold">Recommended</h2>
+          <h2 className="text-white text-s font-semibold">Recommended</h2>
           {/* Recommended videos */}
           <div className="flex flex-col gap-4">
             {/* Sample recommended video */}

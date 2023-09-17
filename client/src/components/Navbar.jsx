@@ -31,17 +31,17 @@ const Navbar = () => {
           <input
             type="text"
             placeholder="Search..."
-            className="bg-transparent text-white placeholder-gray-400 ml-2 outline-none w-full text-sm"
+            className="bg-transparent text-white placeholder-gray-400 ml-2 outline-none w-full text-xs"
           />
           <button>
-            <Search className="text-white" />
+            <Search size={20} className="text-white" />
           </button>
         </div>
         <div className="flex items-center">
           {user ? (
             <>
               <button onClick={() => setIsUploadOpen(true)}>
-                <Plus className="text-white mr-4 cursor-pointer" />
+                <Plus size={20} className="text-white mr-4 cursor-pointer" />
               </button>
               <div className="flex items-center flex-col gap-1">
                 <Dropdown img={user.img} />
