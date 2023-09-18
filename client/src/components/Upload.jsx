@@ -1,5 +1,7 @@
 import React from "react";
 import { X, Sparkles } from "lucide-react";
+import clsx from "clsx";
+import { generateDescription } from "../Service/aiApi";
 
 const Upload = ({ closeModal }) => {
   const [data, setData] = React.useState({
@@ -10,19 +12,38 @@ const Upload = ({ closeModal }) => {
     video: "",
   });
 
+  const [aiData, setAiData] = React.useState({
+    title: "",
+    summary: "",
+    channelName: "",
+    channelDescription: "",
+    tags: "",
+    callToAction: "",
+    additionalAnnouncements: "",
+    emotionalTone: "",
+    emojiesUsage: "",
+  });
+
   const [writeWithAI, setWriteWithAI] = React.useState(false);
+  const heightOfModal = clsx(
+    "bg-gray-1000 p-8 rounded-lg shadow-md w-3/4 overflow-y-scroll overflow-x-hidden custom-scrollbar z-50",
+    {
+      "min-h-min": !writeWithAI,
+      "h-screen": writeWithAI,
+    },
+  );
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[10000] transition-all duration-300">
-      <div className="bg-gray-1000 p-8 rounded-lg shadow-md w-3/4 min-h-min z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[10000] transition-all duration-300 ">
+      <div className={heightOfModal}>
         <div className="w-full flex justify-between items-center">
           <h2 className="text-2xl font-semibold mb-4 text-white">Upload</h2>
           <button
-            className="relative -top-12 left-12 rounded-full p-2 bg-red-500 text-white hover:bg-red-600 focus:outline-none"
+            className="relative -top-8 left-8 rounded-full p-2"
             onClick={() => closeModal()}
           >
             <X size={24} color="white" />
@@ -71,28 +92,15 @@ const Upload = ({ closeModal }) => {
 
           <div className="flex gap-4 flex-col w-full justify-start">
             {/* description */}
-            {writeWithAI ? (
-              <>
-                {" "}
-                <FormInput
-                  label="short summary"
-                  type="text"
-                  name="summary"
-                  placeholder="Enter description"
-                  onChange={handleChange}
-                  isDescription={true}
-                />
-              </>
-            ) : (
-              <FormInput
-                label="Description"
-                type="text"
-                name="description"
-                placeholder="Enter description"
-                onChange={handleChange}
-                isDescription={true}
-              />
-            )}
+
+            <FormInput
+              label="Description"
+              type="text"
+              name="description"
+              placeholder="Enter description"
+              onChange={handleChange}
+              isDescription={true}
+            />
 
             {/* Tags */}
             <FormInput
@@ -106,23 +114,12 @@ const Upload = ({ closeModal }) => {
 
             <div className="w-full flex justify-between">
               {writeWithAI ? (
-                <>
-                  <button class="btn">
-                    <svg
-                      height="20"
-                      width="20"
-                      fill="#FFFFFF"
-                      viewBox="0 0 24 24"
-                      data-name="Layer 1"
-                      id="Layer_1"
-                      class="sparkle"
-                    >
-                      <path d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"></path>
-                    </svg>
-
-                    <span class="text">Generate</span>
-                  </button>
-                </>
+                <button
+                  className="w-full text-blue-vivid text-sm underline font-thin flex gap-1 items-center"
+                  onClick={() => setWriteWithAI(false)}
+                >
+                  write description yourself
+                </button>
               ) : (
                 <button
                   className="w-full text-blue-vivid text-sm underline font-thin flex gap-1 items-center"
@@ -135,6 +132,121 @@ const Upload = ({ closeModal }) => {
             </div>
           </div>
         </form>
+
+        {/* AI Form */}
+        {writeWithAI ? (
+          <form className="space-y-4">
+            <FormInput
+              label="Summary"
+              type="textarea"
+              name="summary"
+              placeholder="Enter summary"
+              value={aiData.summary}
+              onChange={(e) =>
+                setAiData({ ...aiData, summary: e.target.value })
+              }
+              isDescription={true}
+            />
+
+            <div className="flex gap-4 flex-col w-full">
+              <FormInput
+                label="Tags"
+                type="text"
+                name="tags"
+                placeholder="Enter tags separated by comma"
+                value={aiData.tags}
+                onChange={(e) => setAiData({ ...aiData, tags: e.target.value })}
+              />
+
+              <FormInput
+                label="Additional Announcements"
+                type="text"
+                name="additionalAnnouncements"
+                placeholder="Enter additional announcements"
+                value={aiData.additionalAnnouncements}
+                onChange={(e) =>
+                  setAiData({
+                    ...aiData,
+                    additionalAnnouncements: e.target.value,
+                  })
+                }
+              />
+
+              <FormInput
+                label="Call To Action"
+                type="text"
+                name="callToAction"
+                placeholder="Enter call to action"
+                value={aiData.callToAction}
+                onChange={(e) =>
+                  setAiData({ ...aiData, callToAction: e.target.value })
+                }
+              />
+
+              <div className="flex gap-4 w-full">
+                <div className="relative w-full">
+                  <label
+                    className="text-sm w-full font-medium text-white flex gap-1 items-center"
+                    htmlFor="emotionalTone"
+                  >
+                    Emotional Tone
+                  </label>
+                  <select
+                    className="block w-full text-sm border border-gray-300 rounded-lg p-2 focus:outline-none"
+                    id="emotionalTone"
+                    name="emotionalTone"
+                    value={aiData.emotionalTone}
+                    onChange={(e) =>
+                      setAiData({ ...aiData, emotionalTone: e.target.value })
+                    }
+                  >
+                    <option value="enthusiastic">Enthusiastic</option>
+                    <option value="informative">Informative</option>
+                    <option value="casual">Casual</option>
+                    <option value="formal">Formal</option>
+                  </select>
+                </div>
+
+                <div className="relative w-full">
+                  <label
+                    className="text-sm w-full font-medium text-white flex gap-1 items-center"
+                    htmlFor="emojiesUsage"
+                  >
+                    Emojies Usage
+                  </label>
+                  <select
+                    className="block w-full text-sm border border-gray-300 rounded-lg p-2 focus:outline-none"
+                    id="emojiesUsage"
+                    name="emojiesUsage"
+                    value={aiData.emojiesUsage}
+                    onChange={(e) =>
+                      setAiData({ ...aiData, emojiesUsage: e.target.value })
+                    }
+                  >
+                    <option value="style1">Style 1</option>
+                    <option value="style2">Style 2</option>
+                    <option value="style3">Style 3</option>
+                    {/* Add more styles as needed */}
+                  </select>
+                </div>
+              </div>
+
+              {/* button */}
+              <div className="flex gap-4 w-full justify-end">
+                <button
+                  className="w-1/6 bg-magenta-lively hover:bg-pink-600 text-white font-semibold py-2 px-4 rounded-lg "
+                  type="submit"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    generateDescription(aiData);
+                  }}
+                >
+                  Generate
+                </button>
+              </div>
+            </div>
+          </form>
+        ) : null}
       </div>
     </div>
   );
