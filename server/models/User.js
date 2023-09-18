@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    channelDescription: {
+        type: String,
+        default: "",
+    },
 }, { timestamps: true });
 
 export default mongoose.model("User", userSchema);

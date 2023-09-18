@@ -10,12 +10,14 @@ const Upload = ({ closeModal }) => {
     video: "",
   });
 
+  const [writeWithAI, setWriteWithAI] = React.useState(false);
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[10000]">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[10000] transition-all duration-300">
       <div className="bg-gray-1000 p-8 rounded-lg shadow-md w-3/4 min-h-min z-50">
         <div className="w-full flex justify-between items-center">
           <h2 className="text-2xl font-semibold mb-4 text-white">Upload</h2>
@@ -67,16 +69,30 @@ const Upload = ({ closeModal }) => {
             </div>
           </div>
 
-          <div className="flex gap-4 flex-col w-full">
+          <div className="flex gap-4 flex-col w-full justify-start">
             {/* description */}
-            <FormInput
-              label="Description"
-              type="text"
-              name="description"
-              placeholder="Enter description"
-              onChange={handleChange}
-              isDescription={true}
-            />
+            {writeWithAI ? (
+              <>
+                {" "}
+                <FormInput
+                  label="short summary"
+                  type="text"
+                  name="summary"
+                  placeholder="Enter description"
+                  onChange={handleChange}
+                  isDescription={true}
+                />
+              </>
+            ) : (
+              <FormInput
+                label="Description"
+                type="text"
+                name="description"
+                placeholder="Enter description"
+                onChange={handleChange}
+                isDescription={true}
+              />
+            )}
 
             {/* Tags */}
             <FormInput
@@ -88,22 +104,34 @@ const Upload = ({ closeModal }) => {
               onChange={handleChange}
             />
 
-            <div>
-              <button class="btn">
-                <svg
-                  height="20"
-                  width="20"
-                  fill="#FFFFFF"
-                  viewBox="0 0 24 24"
-                  data-name="Layer 1"
-                  id="Layer_1"
-                  class="sparkle"
-                >
-                  <path d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"></path>
-                </svg>
+            <div className="w-full flex justify-between">
+              {writeWithAI ? (
+                <>
+                  <button class="btn">
+                    <svg
+                      height="20"
+                      width="20"
+                      fill="#FFFFFF"
+                      viewBox="0 0 24 24"
+                      data-name="Layer 1"
+                      id="Layer_1"
+                      class="sparkle"
+                    >
+                      <path d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"></path>
+                    </svg>
 
-                <span class="text">Generate</span>
-              </button>
+                    <span class="text">Generate</span>
+                  </button>
+                </>
+              ) : (
+                <button
+                  className="w-full text-blue-vivid text-sm underline font-thin flex gap-1 items-center"
+                  onClick={() => setWriteWithAI(true)}
+                >
+                  {`Don't want to write description yourself? Use AI to do so!`}
+                  <Sparkles size={16} />
+                </button>
+              )}
             </div>
           </div>
         </form>
@@ -123,18 +151,20 @@ const FormInput = ({
   onChange,
   accept,
   isDescription = false,
+  required = true,
 }) => {
   return (
     <div>
       <label
-        className="block mb-2 text-md w-full font-medium text-white"
+        className="smb-2 text-sm w-full font-medium text-white flex gap-1 items-center"
         htmlFor={label}
       >
         {label}
+        {required ? <span className="text-red-500">*</span> : null}
       </label>
       {isDescription ? (
         <textarea
-          className="block w-full text-md border border-gray-300 rounded-lg p-2 focus:outline-none"
+          className="block w-full text-sm border border-gray-300 rounded-lg p-2 focus:outline-none"
           id={label}
           type={type}
           name={name}
@@ -142,10 +172,11 @@ const FormInput = ({
           value={value}
           onChange={onChange}
           rows={8}
+          required={required}
         />
       ) : (
         <input
-          className="block w-full text-md border p-2 border-gray-300 rounded-lg focus:outline-none"
+          className="block w-full text-sm border p-2 border-gray-300 rounded-lg focus:outline-none"
           id={label}
           type={type}
           name={name}
@@ -153,8 +184,11 @@ const FormInput = ({
           value={value}
           onChange={onChange}
           accept={accept}
+          required={required}
         />
       )}
     </div>
   );
 };
+
+// Path: client/src/components/Upload.jsx

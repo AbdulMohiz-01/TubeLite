@@ -1,10 +1,12 @@
 import { OpenAI } from "langchain/llms/openai";
 import { PromptTemplate } from "langchain/prompts";
 import { LLMChain } from "langchain/chains";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 
 const OPENAI_KEY = process.env.OPENAI_KEY;
-console.log(OPENAI_KEY)
 const llm = new OpenAI({
     openAIApiKey: OPENAI_KEY,
     engine: "gpt-3.5-turbo",
@@ -13,14 +15,12 @@ const llm = new OpenAI({
 
 async function getMeDescriptionLangchain(title) {
 
-    const prompt = PromptTemplate.fromTemplate("What is a good name for a company that makes {title}?");
+    const prompt = PromptTemplate.fromTemplate("write a youtube video description on the title with emojies and in para form: {title}?");
 
     const chain = new LLMChain({
         llm,
         prompt
     });
-
-
     const result = await chain.run(title);
     return result
 
