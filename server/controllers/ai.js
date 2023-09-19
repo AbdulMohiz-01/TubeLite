@@ -13,6 +13,8 @@ const llm = new OpenAI({
     temperature: 0.7,
 });
 
+// here we have to brew description with langchain
+
 async function getMeDescriptionLangchain(title) {
 
     const prompt = PromptTemplate.fromTemplate("write a youtube video description on the title with emojies and in para form: {title}?");
