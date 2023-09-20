@@ -7,6 +7,12 @@ dotenv.config();
 
 
 
+<<<<<<< HEAD
+=======
+// here we have to brew description with langchain
+
+async function getMeDescriptionLangchain(title) {
+>>>>>>> 6207a8258ab8152bb797fa827da4f067b2bb2151
 
 async function brewDesc(data) {
     const OPENAI_KEY = process.env.OPENAI_KEY;
