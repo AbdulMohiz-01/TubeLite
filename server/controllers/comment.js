@@ -4,7 +4,6 @@ import Video from "../models/video.js"
 const addComment = async (request, response, next) => {
     // request.user._id is the id of the user who is adding the comment
     // request.params.videoId is the id of the video to which we are adding the comment
-    console.log(request.body)
     try {
         const video = await Video.findById(request.body.videoId)
         if (!video) {

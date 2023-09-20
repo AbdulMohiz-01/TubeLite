@@ -2,6 +2,7 @@ import React from "react";
 import { X, Sparkles } from "lucide-react";
 import clsx from "clsx";
 import { generateDescription } from "../Service/aiApi";
+import { useSelector } from "react-redux";
 
 const Upload = ({ closeModal }) => {
   const [data, setData] = React.useState({
@@ -13,6 +14,7 @@ const Upload = ({ closeModal }) => {
   });
 
   const [aiData, setAiData] = React.useState({
+    id: "",
     title: "",
     summary: "",
     channelName: "",
@@ -20,9 +22,11 @@ const Upload = ({ closeModal }) => {
     tags: "",
     callToAction: "",
     additionalAnnouncements: "",
-    emotionalTone: "",
+    emotionalTone: "Enthusiastic",
     emojiesUsage: "",
   });
+
+  const { currentUser } = useSelector((state) => state.user);
 
   const [writeWithAI, setWriteWithAI] = React.useState(false);
   const heightOfModal = clsx(
@@ -35,6 +39,22 @@ const Upload = ({ closeModal }) => {
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const hangleAIFormSubmit = async () => {
+    const { desc } = await generateDescription({
+      ...aiData,
+      channelName: currentUser.name,
+      id: currentUser._id,
+      channelDescription:
+        "Hello I love to code, my favourite language is JavaScript",
+      title: data.title,
+      emojiesUsage: "🚀💻👨‍💻",
+    });
+
+    console.log(desc);
+
+    setData({ ...data, description: desc });
   };
 
   return (
@@ -238,7 +258,7 @@ const Upload = ({ closeModal }) => {
                   type="submit"
                   onClick={(e) => {
                     e.preventDefault();
-                    generateDescription(aiData);
+                    hangleAIFormSubmit();
                   }}
                 >
                   Generate

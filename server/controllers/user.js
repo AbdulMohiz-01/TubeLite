@@ -57,6 +57,7 @@ const getBatchUsers = async (request, response, next) => {
     try {
 
         const userIds = request.params.users.split(','); // Split the string into an array of individual IDs
+        // TODO: Fix error Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer
         const objectIds = userIds.map(userId => new mongoose.Types.ObjectId(userId)); // Convert each ID to ObjectId
 
         const users = await User.find({ _id: { $in: objectIds } });

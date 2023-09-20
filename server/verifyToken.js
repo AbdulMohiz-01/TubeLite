@@ -8,7 +8,6 @@ const verifyToken = (req, res, next) => {
         const error = createError(401, "Unauthorized");
         return next(error);
     }
-
     jwt.verify(token, process.env.JWT_KEY, (error, decoded) => {
         if (error) {
             return next(error);
