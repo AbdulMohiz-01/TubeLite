@@ -7,12 +7,6 @@ dotenv.config();
 
 
 
-<<<<<<< HEAD
-=======
-// here we have to brew description with langchain
-
-async function getMeDescriptionLangchain(title) {
->>>>>>> 6207a8258ab8152bb797fa827da4f067b2bb2151
 
 async function brewDesc(data) {
     const OPENAI_KEY = process.env.OPENAI_KEY;
@@ -28,7 +22,7 @@ async function brewDesc(data) {
 
     const p = brewprompt('desc', data);
     console.log(p)
-    const prompt = PromptTemplate.fromTemplate(p);
+    const prompt = PromptTemplate.fromTemplate("write a description of the youtube video on the title: {title}");
 
     // const formattedPrompt = await prompt.format({
     //     channelName: data.channelName,
@@ -118,7 +112,7 @@ function brewprompt(name, data) {
 
     if (name === 'desc') {
 
-        return `Generate an enticing YouTube video description for: {title}  on '${data.channelName}'. Make it engaging and include the following elements:\n\n🔥 **Introduction**:\nWelcome to ${data.channelName}! Get ready for an epic adventure as we delve into ${data.summary}.\n\n🌟 **Paragraph 1**:\nIn this captivating video, we'll uncover ${data.summary}. You won't believe the ${data.callToAction}.\n\n🚀 **Paragraph 2**:\nJoin us as we explore ${data.tags} that will ${data.additionalAnnouncements}. We're taking you on a journey to ${data.channelDescription}.\n\n💥 **Paragraph 3**:\nBut wait, there's more! We've got some ${data.emotionalTone} insights and ${data.emojiesUsage}. Plus, stay tuned for some incredible ${data.callToAction}!\n\n📢 **Conclusion**:\nDon't miss out on this one-of-a-kind experience! Hit that subscribe button, turn on notifications, and give us a thumbs up if you're excited to join us on this ${data.summary} adventure. Share this video with your friends and let's make '${data.channelName}' the ultimate destination for ${data.tags}.\n\n🔗 **Links**:\n📌 Check out our previous video: [link to previous video]\n🔔 Subscribe for more amazing content: [subscribe link]\n📸 Follow us on Instagram for behind-the-scenes: [Instagram link]\n\nThanks for being a part of our community! Stay tuned and get ready 🎥✨`
+        return `Generate an enticing YouTube video description for: {title}  on '${data.channelName}'. Make it engaging and include the following elements:\n\n🔥 **Introduction**:\nWelcome to ${data.channelName}! Get ready for an epic adventure as we delve into ${data.summary}.\n\n🌟 **Paragraph 1**:\nIn this captivating video, we'll uncover ${data.summary}. You won't believe the ${data.callToAction}.\n\n🚀 **Paragraph 2**:\nJoin us as we explore ${data.tags} that will ${data.additionalAnnouncements}. We're taking you on a journey to ${data.channelDescription}.\n\n💥 **Paragraph 3**:\nBut wait, there's more! We've got some ${data.emotionalTone} insights and ${data.emojiesUsage}. Plus, stay tuned for some incredible ${data.callToAction}!\n\n📢 **Conclusion**:\nDon't miss out on this one-of-a-kind experience! Hit that subscribe button, turn on notifications, and give us a thumbs up if you're excited to join us on this ${data.summary} adventure. Share this video with your friends and let's make '${data.channelName}' the ultimate destination for ${data.tags}.`
     }
 
 }

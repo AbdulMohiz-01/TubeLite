@@ -115,6 +115,7 @@ const Upload = ({ closeModal }) => {
 
             <FormInput
               label="Description"
+              id="description"
               type="text"
               name="description"
               placeholder="Enter description"

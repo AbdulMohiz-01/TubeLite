@@ -17,7 +17,7 @@ const findBatchUsers = async ({ queryKey }) => {
     if (!ids || ids.length === 0) {
         return [];
     }
-    // const response = await axios.get(`${BASE_URL}/api/users/batch/find/${ids}`);
+    const response = await axios.get(`${BASE_URL}/api/users/batch/find/${ids}`);
 
     if (response.status !== 200) {
         throw new Error('findBatchUsers fetch not ok');
